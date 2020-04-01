@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { API_URL } from '../config';
 import { API_KEY } from '../config';
 
 const otherParams = {
@@ -9,6 +8,8 @@ const otherParams = {
     },
     method: "GET"
 }
+
+const API_URL = 'https://api.themoviedb.org/3';
 
 class ClientServiceImpl extends Component {
     
