@@ -1,0 +1,14 @@
+/* Hero styles */
+
+.hero-content-container {
+    position: absolute;
+    font-size: 170%;
+    margin-top: 5%; 
+    margin-left: 2%;
+}
+
+.hero-text {
+    text-align: start; 
+    color: white;
+    font-weight: bold;
+}

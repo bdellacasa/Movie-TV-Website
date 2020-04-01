@@ -1,0 +1,26 @@
+
+.carousel-container {
+    margin-top: 60px;
+}
+
+.carousel-item {
+    width: 200px; 
+    display: grid;
+    direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+.carousel-item-image {
+    width: 210px;
+    height: 300px;
+    align-self: center;
+    border-radius: 2em;
+}
+
+.carousel-title {
+    width: 300px; 
+    text-align: start;
+    font-size: 25px;
+    font-weight: bold;
+}
