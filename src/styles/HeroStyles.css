@@ -1,14 +1,23 @@
 /* Hero styles */
+.hero-background {
+    height: 500px;
+    padding-top: 50px;
+    background-size: cover;
+    align-content: center;
+}
 
 .hero-content-container {
-    position: absolute;
     font-size: 170%;
-    margin-top: 5%; 
-    margin-left: 2%;
+    margin-top: 5%;
 }
 
 .hero-text {
+    margin-left: 22%;
     text-align: start; 
     color: white;
     font-weight: bold;
+}
+
+.hero-search-container {
+    margin-top: 80px;
 }

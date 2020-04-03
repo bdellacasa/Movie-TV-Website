@@ -3,8 +3,7 @@ import '../styles/ListStyles.css';
 import Card from './ListCard';
 import ClientService from '../services/ClientService';
 
-const IMAGE_BASE_URL = ClientService.IMAGE_BASE_URL;
-
+const IMAGE_BASE_URL = ClientService.IMAGE_BASE_URL+ClientService.POSTER_SIZE;
 export default class List extends Component {
 
     getCardsArray() {
@@ -15,7 +14,8 @@ export default class List extends Component {
               type={this.props.type}
               name={info.title || info.name}
               description={info.overview || null}
-              image={IMAGE_BASE_URL+(info.poster_path || info.profile_path)}/>
+              image={IMAGE_BASE_URL+(info.poster_path || info.profile_path)}
+              character={info.character || null}/>
         ));
         return(cardsArray)
     }

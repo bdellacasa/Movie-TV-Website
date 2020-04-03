@@ -9,17 +9,17 @@ export default class Header extends Component {
         return(
             <header className="header">
                 <div className="header-content-container">
-                    <Link style={{alignSelf: 'center'}} to="/">
+                    <Link className={"header-logo-nav"} to="/">
                         <img src={Logo} className={"logo"}/>
                     </Link>
                     <div className="header-text-container">
-                        <Link style={{ textDecoration: 'none' }} to={'/list/'+CONTENT_TYPE.MOVIES}>
+                        <Link className={"header-link-nav"} to={`/list/${CONTENT_TYPE.MOVIES}`}>
                             <p className="header-font">Movies</p>
                         </Link>
-                        <Link style={{ textDecoration: 'none' }} to={'/list/'+CONTENT_TYPE.SERIES}>
+                        <Link className={"header-link-nav"} to={`/list/${CONTENT_TYPE.SERIES}`}>
                             <p className="header-font">Series</p>
                         </Link>
-                        <Link style={{ textDecoration: 'none' }} to={'/list/'+CONTENT_TYPE.PEOPLE}>
+                        <Link className={"header-link-nav"} to={`/list/${CONTENT_TYPE.PEOPLE}`}>
                             <p className="header-font">People</p>
                         </Link>
                     </div>

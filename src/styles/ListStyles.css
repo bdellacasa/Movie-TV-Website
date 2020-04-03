@@ -12,6 +12,11 @@
 .list-card-description {
     margin-left: 10px;
     text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 13;
 }
 
 .list-card-title {

@@ -3,6 +3,7 @@ import ClientService from '../services/ClientService';
 import Screen from '../screens/Screen';
 import Hero from '../components/Hero';
 import Carousel from '../components/Carousel';
+import { CONTENT_TYPE } from '../Constants';
 
 export class Index extends Component {
     constructor(props) {
@@ -10,32 +11,19 @@ export class Index extends Component {
         this.state = {
             carouselPopularMovies: [],
             carouselMoviesUpcoming: [],
-            carouselPopularSeries: []
+            carouselPopularSeries: [],
+            heroImageUrl: undefined
         }
     }
 
-    getPopularMovies = async () => {
-        const result = await ClientService.getMoviePopular();
-        return result.results;
-    }
-
-    getMoviesUpcoming = async () => {
-        const result = await ClientService.getMovieUpcoming();
-        return result.results;
-    }
-
-    getTVPopular = async () => {
-        const result = await ClientService.getTVPopular();
-        return result.results;
-    }
-
     async fetchCarouselsContent() {
-        const [popularMovies, moviesUpcoming, popularSeries] = await Promise.all([this.getPopularMovies(), this.getMoviesUpcoming(), this.getTVPopular()]);
+        const [popularMovies, moviesUpcoming, popularSeries] = await Promise.all([ClientService.getMoviePopular(), ClientService.getMovieUpcoming(), ClientService.getTVPopular()]);
 
         this.setState({
-            carouselPopularMovies: popularMovies,
-            carouselMoviesUpcoming: moviesUpcoming,
-            carouselPopularSeries: popularSeries
+            carouselPopularMovies: popularMovies.results,
+            carouselMoviesUpcoming: moviesUpcoming.results,
+            carouselPopularSeries: popularSeries.results,
+            heroImageUrl: `${ClientService.IMAGE_BASE_URL}${ClientService.BACKDROP_SIZE}${popularMovies.results[Math.floor(Math.random() * popularMovies.results.length)].backdrop_path}`,
         })
     }
 
@@ -44,13 +32,13 @@ export class Index extends Component {
         
     }
 
-    renderContent() {  
+    renderContent() { 
         return(
             <div>
-                <Hero/>
-                <Carousel data={this.state.carouselPopularMovies} name={"Popular Movies"}/>
-                <Carousel data={this.state.carouselMoviesUpcoming} name={"Movies upcoming"}/>
-                <Carousel data={this.state.carouselPopularSeries} name={"Popular Series"}/>
+                <Hero imageUrl={this.state.heroImageUrl}/>
+                <Carousel data={this.state.carouselPopularMovies} name={"Popular Movies"} type={CONTENT_TYPE.MOVIES} />
+                <Carousel data={this.state.carouselMoviesUpcoming} name={"Movies upcoming"} type={CONTENT_TYPE.MOVIES}/>
+                <Carousel data={this.state.carouselPopularSeries} name={"Popular Series"} type={CONTENT_TYPE.SERIES}/>
             </div>
         )
     }

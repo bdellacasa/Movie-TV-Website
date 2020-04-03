@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { Index } from "../screens/IndexScreen";
 import { ListScreen } from '../screens/ListScreen';
+import { ContentDetailScreen } from '../screens/ContentDetailScreen';
 import { CONTENT_TYPE } from '../Constants';
 
 /**
@@ -17,6 +18,7 @@ function ApplicationRouter() {
             <Route path={"/list/"+CONTENT_TYPE.SERIES} component={ListScreen} />
             <Route path={"/list/"+CONTENT_TYPE.PEOPLE} component={ListScreen} />
             <Route path={"/list/search/:query"} component={ListScreen} />
+            <Route path={"/detail/:contentType/:id"} component={ContentDetailScreen} />
         </Router>
     )
 }

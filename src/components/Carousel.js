@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ItemsCarousel from 'react-items-carousel';
 import '../styles/CarouselStyles.css';
 import ClientService from '../services/ClientService';
 
-const IMAGE_BASE = ClientService.IMAGE_BASE_URL;
+const IMAGE_BASE = ClientService.IMAGE_BASE_URL+ClientService.POSTER_SIZE;
 
 export default class Carousel extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            items: [],
-            activeItemIndex: 0
-        }
-    }
+  constructor(props) {
+      super(props)
+      this.state = {
+          items: [],
+          activeItemIndex: 0
+      }
+  }
 
   componentDidUpdate(prevProps) {
       if((prevProps.data !== this.props.data) && (!!this.props.data)) {
@@ -31,11 +32,13 @@ export default class Carousel extends Component {
         date = new Date(item.release_date || item.first_air_date);
         return(
             <div key={idx} className={"carousel-item"}>
-                <img alt="" src={IMAGE_BASE+item.poster_path} className={"carousel-item-image"}/>
-                <div>
-                    <p style={{fontWeight: 'bold'}}>{item.title}</p>
-                    <p>{date.toDateString()}</p>
-                </div>
+                <Link className={"carousel-nav"} to={`detail/${this.props.type}/${item.id}`}>
+                  <img alt="" src={IMAGE_BASE+item.poster_path} className={"carousel-item-image"}/>
+                  <div>
+                     <p style={{fontWeight: 'bold'}}>{item.title}</p>
+                     <p>{date.toDateString()}</p>
+                  </div>
+                </Link>
             </div>
         )
       })
@@ -53,7 +56,7 @@ export default class Carousel extends Component {
         <div className={"carousel-container"} style={{maxWidth: window.innerWidth * 0.7}}>
             <p className={"carousel-title"}>{this.props.name}</p>
             <ItemsCarousel
-                placeholderItem={<div style={{ height: 300, background: '#EEE' }} />}
+                placeholderItem={<div style={{ height: 300, width: 200, borderRadius: '2em', background: '#EEE' }} />}
                 enablePlaceholder={true}
                 numberOfPlaceholderItems={3}
                 numberOfCars={5}

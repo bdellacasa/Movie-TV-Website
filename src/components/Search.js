@@ -16,12 +16,18 @@ export default class Search extends Component {
     })
   }
 
+  navigate() {
+    if (this.state.query.length > 0) {
+      this.setState({
+        toResults: true
+      });
+    }
+  }
+
   handleOnKeyPress = (event) => {
     if (event.charCode == '13'){
         // Enter pressed
-        this.setState({
-            toResults: true
-        });
+        this.navigate();
     }
   }
 
@@ -31,7 +37,6 @@ export default class Search extends Component {
     }
     return (
         <div className={"search-container"}>
-            <img className={"search-icon"} src={SearchIcon}/>
             <form>
                 <input
                     id={"search_form"}
@@ -42,6 +47,7 @@ export default class Search extends Component {
                     onKeyPress={this.handleOnKeyPress}
                 />
             </form>
+            <button className={"search-button"} onClick={() => this.navigate()}>Search</button>
         </div>
     )
   }

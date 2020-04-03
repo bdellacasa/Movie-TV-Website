@@ -16,7 +16,9 @@ class ClientServiceImpl extends Component {
     constructor(props) {
         super(props)
         
-        this.IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/w1280';
+        this.IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
+        this.BACKDROP_SIZE = 'w1280';
+        this.POSTER_SIZE = 'w500';
     }
 
     get = async (URL, page = 1, query = null) => {
@@ -31,7 +33,7 @@ class ClientServiceImpl extends Component {
         })
         .catch(error => { 
             console.log("ERROR GET "+url+" ", error)
-            return null;
+            return [];
         })
     }
 
@@ -43,7 +45,7 @@ class ClientServiceImpl extends Component {
         return this.get("/movie/top_rated", page)
     }
 
-    getMovieUpcoming= (page) => {
+    getMovieUpcoming = (page) => {
         return this.get("/movie/upcoming", page)
     }
 
@@ -67,15 +69,32 @@ class ClientServiceImpl extends Component {
         return this.get("/tv/top_rated", page)
     }
 
+    getPopularPeople = (page) => {
+        return this.get("/person/popular", page);
+    }
+
+    getMovieDetail = (id) => {
+        return this.get(`/movie/${id}`);
+    }
+
+    getTVDetail = (id) => {
+        return this.get(`/tv/${id}`);
+    }
+
+    getMovieCredit = (id) => {
+        return this.get(`/movie/${id}/credits`);
+    }
+
+    getTVCredit = (id) => {
+        return this.get(`/tv/${id}/credits`);
+    }
+
     searchItem = async (query, page) => {
         return this.get("/search/multi", page, query).then( result => {
             return result;
         });
     }
 
-    getPopularPeople = (page) => {
-        return this.get("/person/popular", page);
-    }
 }
 
 const ClientService = new ClientServiceImpl();
