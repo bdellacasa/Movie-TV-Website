@@ -45,7 +45,7 @@ export class ContentDetailScreen extends Component {
 
     //path = /detail/contentType/id
     getData() {
-        const path = window.location.pathname.split("/");
+        const path = this.props.location.pathname.split("/");
         this.fetchData(path[3], path[2]);
     }
     

@@ -155,11 +155,13 @@
 }
 
 .search-form {
-    margin-left: 10px;
+    padding-left: 10px;
     align-self: center;
     width: 100vh;
     height: 40px;
     border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .search-container {

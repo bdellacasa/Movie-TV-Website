@@ -15,8 +15,8 @@ export class ListScreen extends Component {
         }
     }
 
-    componentDidMount() {
-        const path = window.location.pathname.split("/");
+    getContent() {
+        const path = this.props.location.pathname.split("/");
         const type = path[1] === CONTENT_TYPE.SEARCH ? path[1] : path[2];
         switch (type) {
             case CONTENT_TYPE.MOVIES:
@@ -50,6 +50,16 @@ export class ListScreen extends Component {
         }
     }
 
+    componentDidMount() {
+        this.getContent();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.location !== prevProps.location) {
+            this.getContent();
+        }
+    }
+
     searchItem = async (query) => {
         ClientService.searchItem(query, 1)
           .then(results => {
@@ -65,7 +75,7 @@ export class ListScreen extends Component {
     renderContent() {
         return(
             <div>
-                {this.state.type === CONTENT_TYPE.SEARCH && <Search/>}
+                {this.state.type == CONTENT_TYPE.SEARCH && <Search/>}
                 <List data={this.state.data} type={this.state.type}/>
             </div>
         )

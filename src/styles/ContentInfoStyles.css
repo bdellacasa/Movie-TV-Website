@@ -1,19 +1,21 @@
 .content-info-background {
-    height: 500px;
-    padding-top: 50px;
+    height: 550px;
     background-size: cover;
 }
 
 .content-info-container {
     display: flex;
     flex-direction: row;
-    margin-left: 350px;
-    height: 200px;
+    height: 550px;
+    justify-content: center;
+    background: rgb(0, 0, 0, 0.5);
 }
 
 .content-info-image {
     width: 280px; 
     height: 400px;
+    margin-left: 200px;
+    margin-top: 50px;
 }
 
 .content-info-text {
@@ -23,6 +25,7 @@
     flex-direction: column;
     text-align: start; 
     color: white;
+    margin-top: 50px;
 }
 
 .content-info-title {
