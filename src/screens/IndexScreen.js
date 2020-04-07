@@ -20,10 +20,12 @@ export class Index extends Component {
         const [popularMovies, moviesUpcoming, popularSeries] = await Promise.all([ClientService.getMoviePopular(), ClientService.getMovieUpcoming(), ClientService.getTVPopular()]);
 
         this.setState({
-            carouselPopularMovies: popularMovies.results,
-            carouselMoviesUpcoming: moviesUpcoming.results,
-            carouselPopularSeries: popularSeries.results,
-            heroImageUrl: `${ClientService.IMAGE_BASE_URL}${ClientService.BACKDROP_SIZE}${popularMovies.results[Math.floor(Math.random() * popularMovies.results.length)].backdrop_path}`,
+            carouselPopularMovies: !!popularMovies ? popularMovies.results : [],
+            carouselMoviesUpcoming: !!moviesUpcoming ? moviesUpcoming.results : [],
+            carouselPopularSeries: !!popularSeries ? popularSeries.results : [],
+            heroImageUrl: !!popularMovies 
+                ?  `${ClientService.IMAGE_BASE_URL}${ClientService.BACKDROP_SIZE}${popularMovies.results[Math.floor(Math.random() * popularMovies.results.length)].backdrop_path}`
+                : ""
         })
     }
 
@@ -38,7 +40,7 @@ export class Index extends Component {
                 <Hero imageUrl={this.state.heroImageUrl}/>
                 <Carousel data={this.state.carouselPopularMovies} name={"Popular Movies"} type={CONTENT_TYPE.MOVIES} />
                 <Carousel data={this.state.carouselMoviesUpcoming} name={"Movies upcoming"} type={CONTENT_TYPE.MOVIES}/>
-                <Carousel data={this.state.carouselPopularSeries} name={"Popular Series"} type={CONTENT_TYPE.SERIES}/>
+                <Carousel data={this.state.carouselPopularSeries} name={"Popular Series"} type={CONTENT_TYPE.TV}/>
             </div>
         )
     }

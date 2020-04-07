@@ -11,7 +11,7 @@ export default class List extends Component {
             <Card
               key={idx}
               id={info.id}
-              type={this.props.type}
+              type={info.type || this.props.type}
               name={info.title || info.name}
               description={info.overview || null}
               image={IMAGE_BASE_URL+(info.poster_path || info.profile_path)}

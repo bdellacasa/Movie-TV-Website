@@ -98,11 +98,12 @@
 }
 
 .screen-content {
+    min-height: 80vh;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 60px;
+    margin-bottom: 100px;
 }
 
 .screen-footer {
@@ -110,7 +111,7 @@
     height: 10vh;
     display: flex;
     flex-direction: row;
-    align-items: space-between;
+    align-items: center;
     justify-content: center;
     font-size: calc(8px + 2vmin);
     color: white;
@@ -139,7 +140,7 @@
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
-	font-size:14px;
+	font-size:13px;
 	font-weight:bold;
 	padding:13px 32px;
 	text-decoration:none;

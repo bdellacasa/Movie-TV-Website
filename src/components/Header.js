@@ -13,13 +13,13 @@ export default class Header extends Component {
                         <img src={Logo} className={"logo"}/>
                     </Link>
                     <div className="header-text-container">
-                        <Link className={"header-link-nav"} to={`/list/${CONTENT_TYPE.MOVIES}`}>
+                        <Link className={"header-link-nav"} style={{ textDecoration: 'none' }} to={`/list/${CONTENT_TYPE.MOVIES}`}>
                             <p className="header-font">Movies</p>
                         </Link>
-                        <Link className={"header-link-nav"} to={`/list/${CONTENT_TYPE.SERIES}`}>
+                        <Link className={"header-link-nav"} style={{ textDecoration: 'none' }} to={`/list/${CONTENT_TYPE.TV}`}>
                             <p className="header-font">Series</p>
                         </Link>
-                        <Link className={"header-link-nav"} to={`/list/${CONTENT_TYPE.PEOPLE}`}>
+                        <Link className={"header-link-nav"} style={{ textDecoration: 'none' }} to={`/list/${CONTENT_TYPE.PERSON}`}>
                             <p className="header-font">People</p>
                         </Link>
                     </div>

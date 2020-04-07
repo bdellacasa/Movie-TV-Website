@@ -33,7 +33,7 @@ class ClientServiceImpl extends Component {
         })
         .catch(error => { 
             console.log("ERROR GET "+url+" ", error)
-            return [];
+            return null;
         })
     }
 

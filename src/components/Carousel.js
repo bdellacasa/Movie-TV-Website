@@ -32,7 +32,7 @@ export default class Carousel extends Component {
         date = new Date(item.release_date || item.first_air_date);
         return(
             <div key={idx} className={"carousel-item"}>
-                <Link className={"carousel-nav"} to={`detail/${this.props.type}/${item.id}`}>
+                <Link className={"carousel-nav"} style={{textDecoration: 'none'}} to={`detail/${this.props.type}/${item.id}`}>
                   <img alt="" src={IMAGE_BASE+item.poster_path} className={"carousel-item-image"}/>
                   <div>
                      <p style={{fontWeight: 'bold'}}>{item.title}</p>

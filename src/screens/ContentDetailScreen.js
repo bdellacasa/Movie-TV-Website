@@ -21,11 +21,11 @@ export class ContentDetailScreen extends Component {
         let content, credit, cast = undefined;
         if (type === CONTENT_TYPE.MOVIES) {
             [content, credit] = await Promise.all([ClientService.getMovieDetail(id), ClientService.getMovieCredit(id)]);
-        } else if (type == CONTENT_TYPE.SERIES){
+        } else if (type == CONTENT_TYPE.TV){
             [content, credit] = await Promise.all([ClientService.getTVDetail(id), ClientService.getTVCredit(id)]);
         }
 
-        if (type !== CONTENT_TYPE.PEOPLE) {
+        if (type !== CONTENT_TYPE.PERSON) {
             cast = credit.cast.map(c => {
                 return {
                     id: c.id,
@@ -59,9 +59,9 @@ export class ContentDetailScreen extends Component {
 
     renderCast() {
         return (
-            <div style={{paddingLeft: window.innerWidth * 0.15}}>
+            <div style={{paddingLeft: window.innerWidth * 0.15, marginTop: '30px'}}>
                 <p className={"content-info-cast-title"}>Cast</p>
-                <List data={this.state.cast} type={CONTENT_TYPE.PEOPLE}/>
+                <List data={this.state.cast} type={CONTENT_TYPE.PERSON}/>
             </div>
         )
     }

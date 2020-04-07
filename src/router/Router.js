@@ -15,8 +15,8 @@ function ApplicationRouter() {
         <Router>
             <Route exact path="/" component={Index} />
             <Route path={"/list/"+CONTENT_TYPE.MOVIES} component={ListScreen} />
-            <Route path={"/list/"+CONTENT_TYPE.SERIES} component={ListScreen} />
-            <Route path={"/list/"+CONTENT_TYPE.PEOPLE} component={ListScreen} />
+            <Route path={"/list/"+CONTENT_TYPE.TV} component={ListScreen} />
+            <Route path={"/list/"+CONTENT_TYPE.PERSON} component={ListScreen} />
             <Route path={"/list/search/:query"} component={ListScreen} />
             <Route path={"/detail/:contentType/:id"} component={ContentDetailScreen} />
         </Router>

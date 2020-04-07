@@ -1,12 +1,17 @@
 /* List Card Styles */
 
+.list-card-background {
+    height: 500px;
+    width: 300px; 
+    background-color: grey; 
+}
+
 .list-card {
     height: 300px;
     width: 200px; 
     display: flex;
     justify-content: space-between;
     align-self: center; 
-    background-color: white;
 }
 
 .list-card-description {
@@ -16,12 +21,13 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 13;
+    -webkit-line-clamp: 10;
 }
 
 .list-card-title {
     width: 200px;
     font-weight: bold;
+    margin-top: 10px;
 }
 
 /* List Styles */
@@ -31,7 +37,7 @@
     display: grid;
     grid-template-columns: 32% 32% 32%;
     grid-column-gap: 15px;
-    grid-row-gap: 70px;
+    grid-row-gap: 110px;
     justify-content: center;
     align-content: space-between;
     align-self: center;
