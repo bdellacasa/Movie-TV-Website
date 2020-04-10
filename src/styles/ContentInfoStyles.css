@@ -29,23 +29,56 @@
 }
 
 .content-info-title {
-    font-size: 40px;
+    font-size: 2.4em;
     font-weight: bold;
 }
 
 .content-info-tagline {
     font-style: italic;
-    font-size: 18px;
+    font-size: 1.2em;
 }
 
 .content-info-description {
-    font-size: 16px;
+    font-size: 1em;
     line-height: 1.4;
 }
 
 .content-info-cast-title {
     width: 300px; 
     text-align: start;
-    font-size: 25px;
+    font-size: 1.6em;
     font-weight: bold;
+    margin-left: 8vw;
+}
+
+@media screen and (max-width: 420px) {
+    .content-info-cast-title {
+        margin-left: 22vw;
+    }
+
+    .content-info-background {
+        min-width: 132vw;
+    }
+
+    .content-info-image {
+        width: 170px; 
+        height: 240px;
+        margin-left: 19vw;
+    }
+
+    .content-info-title {
+        font-size: 1.4em;
+    }
+    
+    .content-info-tagline {
+        font-size: 0.95em;
+    }
+
+    .content-info-description {
+        font-size: 0.9em;
+    }
+
+    .content-info-text {
+        margin-left: 13px;
+    }
 }

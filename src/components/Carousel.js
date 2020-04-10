@@ -53,15 +53,15 @@ export default class Carousel extends Component {
     } = this.state;
 
     return (
-        <div className={"carousel-container"} style={{maxWidth: window.innerWidth * 0.7}}>
+        <div className={"carousel-container"}>
             <p className={"carousel-title"}>{this.props.name}</p>
             <ItemsCarousel
                 placeholderItem={<div style={{ height: 300, width: 200, borderRadius: '2em', background: '#EEE' }} />}
                 enablePlaceholder={true}
                 numberOfPlaceholderItems={3}
-                numberOfCars={5}
+                numberOfCars={3}
                 slidesToScroll={2}
-                chevronWidth={40}
+                chevronWidth={100}
                 outsideChevron={true}
                 showSlither={false}
                 firstAndLastGutter={false}

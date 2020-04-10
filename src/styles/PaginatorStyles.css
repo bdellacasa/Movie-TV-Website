@@ -2,5 +2,12 @@
 .paginator-container {
     overflow-x: auto;
     margin-top: 100px;
-    margin-left: 20%;
+    margin-left: 18vw;
+}
+
+@media screen and (max-width: 420px) {
+    .paginator-container {
+        width: 100vw;
+        margin-left: 6vw;
+    }
 }

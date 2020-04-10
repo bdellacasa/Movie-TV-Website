@@ -3,7 +3,7 @@ import '../styles/ContentInfoStyles.css';
 
 const ContentInfo = (props) => {
     return(
-      <div className={"content-info-background"} style={{backgroundImage: `url(${props.backdropUrl})`, width: window.innerWidth}}>
+      <div className={"content-info-background"} style={{backgroundImage: `url(${props.backdropUrl})`}}>
         <div className={"content-info-container"}>
             <img className={"content-info-image"} src={props.posterUrl}/>
             <div className={"content-info-text"}>

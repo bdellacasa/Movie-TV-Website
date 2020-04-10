@@ -14,6 +14,11 @@
     align-self: center; 
 }
 
+.list-card-image {
+    max-height: 400px;
+    min-height: 300px;
+}
+
 .list-card-description {
     margin-left: 10px;
     text-align: start;
@@ -33,13 +38,38 @@
 /* List Styles */
 
 .list {
-    width: 150vh;
+    width: 80vw;
+    margin-left: 4vw;
     display: grid;
-    grid-template-columns: 32% 32% 32%;
+    grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 15px;
-    grid-row-gap: 110px;
+    grid-row-gap: 50px;
     justify-content: center;
-    align-content: space-between;
-    align-self: center;
     margin-top: 60px;
+}
+
+.search-container {
+    margin-left: 5%;
+}
+  
+@media screen and (max-width: 420px) {
+    .list {
+        grid-template-columns: repeat(1, 1fr);
+        grid-row-gap: 80px;
+        margin-left: 6vw;
+    }
+
+    .list-card-description {
+        width: 43vw;
+        -webkit-line-clamp: 7;
+    }
+
+    .list-card-image {
+        max-width: 200px;
+        max-height: 300px;
+    }
+
+    .search-container {
+        margin-left: 12%;
+    }
 }

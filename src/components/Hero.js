@@ -4,7 +4,7 @@ import Search from './Search';
 
 const Hero = (props) => {
     return(
-      <div className={"hero-background"} style={{backgroundImage: `url(${props.imageUrl})`, width: window.innerWidth}}>
+      <div className={"hero-background"} style={{backgroundImage: `url(${props.imageUrl})`}}>
         <div className={"hero-opacity"}>
           <div className={"hero-content-container"}>
             <p className={"hero-text"}>Welcome!</p>

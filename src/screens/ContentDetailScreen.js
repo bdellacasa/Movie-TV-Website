@@ -59,7 +59,7 @@ export class ContentDetailScreen extends Component {
 
     renderCast() {
         return (
-            <div style={{paddingLeft: window.innerWidth * 0.15, marginTop: '30px'}}>
+            <div style={{paddingLeft: '10vw', marginTop: '30px'}}>
                 <p className={"content-info-cast-title"}>Cast</p>
                 <List data={this.state.cast} type={CONTENT_TYPE.PERSON}/>
             </div>

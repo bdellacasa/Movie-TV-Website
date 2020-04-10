@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CONTENT_TYPE } from '../Constants';
 import '../styles/PaginatorStyles.css';
+import '../styles/ListStyles.css';
 import Search from '../components/Search';
 import ClientService from '../services/ClientService';
 import Screen from '../screens/Screen';
@@ -73,7 +74,7 @@ export class ListScreen extends Component {
     renderContent() {
         return(
             <div style={{ alignContent: 'center' }}>
-                {this.state.type == CONTENT_TYPE.SEARCH && <Search/>}
+                {this.state.type == CONTENT_TYPE.SEARCH && <Search classname={"search-container"}/>}
                 {this.state.data && <List data={this.state.data} type={this.state.type}/>}
                 {!!this.state.data && this.state.data.length > 0 && <Paginator totalPages={this.state.totalPages} maxPagesToShow={20} paginate={page => this.getContent(page)}/>}
             </div>
