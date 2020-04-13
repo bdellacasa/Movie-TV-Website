@@ -1,4 +1,5 @@
 .content-info-background {
+    min-width: 100vw;
     height: 550px;
     background-size: cover;
 }

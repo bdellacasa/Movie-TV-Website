@@ -100,17 +100,4 @@ export default class Carousel extends Component {
     } = this.state;
     return (items.length > 0 ? this.renderContent(items) : this.renderPlaceholders())
   }
-
-
-
-
-
-
-
-
-
-
-
-
-  
 }
