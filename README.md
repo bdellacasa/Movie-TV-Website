@@ -1,5 +1,8 @@
 Movie and TV website made with ReactJS
 
+![](movie-website.gif)
+
+
 1. Get your api key as stated in https://www.themoviedb.org/documentation/api
 
 2. Download or clone the repo
