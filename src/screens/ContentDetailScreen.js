@@ -24,7 +24,6 @@ export class ContentDetailScreen extends Component {
         } else if (type == CONTENT_TYPE.TV){
             [content, credit] = await Promise.all([ClientService.getTVDetail(id), ClientService.getTVCredit(id)]);
         }
-
         if (type !== CONTENT_TYPE.PERSON) {
             cast = credit.cast.map(c => {
                 return {

@@ -47,17 +47,23 @@ export default class ListCard extends Component {
         if ((this.state.toDetail) && this.props.type !== CONTENT_TYPE.PERSON) {
             return <Redirect to={`/detail/${this.props.type}/${this.props.id}`} />
         }
-        const isContentCard = this.props.type !== CONTENT_TYPE.PERSON && this.props.type !== CONTENT_TYPE.SEARCH;
+        const isContentCard = this.props.type !== CONTENT_TYPE.PERSON; //Movie or tv card
         const typeDependantStyle = isContentCard ? {
             flexDirection: 'row',
             paddingBottom: 0,
-            marginLeft: 0
-        } :
-        {
-            flexDirection: 'column',
-            paddingBottom: '48vh',
-            marginLeft: '80px'
-        };
+            marginLeft: 0   
+        } : 
+        //people or search list card
+        !this.props.isSearchList ?
+            {
+                flexDirection: 'column',
+                paddingBottom: '48vh',
+                marginLeft: '80px'
+            } : {
+                flexDirection: 'column',
+                paddingBottom: 0,
+                marginLeft: 0
+            };
 
         return(
             <div className={"list-card"} style={typeDependantStyle} onClick={() => this.handleClickEvent()}>

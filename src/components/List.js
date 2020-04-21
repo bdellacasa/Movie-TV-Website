@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../styles/ListStyles.css';
 import Card from './ListCard';
 import ClientService from '../services/ClientService';
+import { CONTENT_TYPE } from '../Constants';
 
 const IMAGE_BASE_URL = ClientService.IMAGE_BASE_URL+ClientService.POSTER_SIZE;
 export default class List extends Component {
@@ -11,7 +12,8 @@ export default class List extends Component {
             <Card
               key={idx}
               id={info.id}
-              type={info.type || this.props.type}
+              type={info.media_type || this.props.type}
+              isSearchList={this.props.type == CONTENT_TYPE.SEARCH}
               name={info.title || info.name}
               description={info.overview || null}
               image={IMAGE_BASE_URL+(info.poster_path || info.profile_path)}
