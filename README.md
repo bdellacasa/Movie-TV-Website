@@ -1,7 +1,12 @@
+# MovieApp 
+
 Movie and TV website made with ReactJS
 
-![](movie-website.gif)
+## Live demo
 
+https://movie-app-bd.netlify.app/
+
+## Installation
 
 1. Get your api key as stated in https://www.themoviedb.org/documentation/api
 
