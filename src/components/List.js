@@ -17,7 +17,8 @@ export default class List extends Component {
               name={info.title || info.name}
               description={info.overview || null}
               image={IMAGE_BASE_URL+(info.poster_path || info.profile_path)}
-              character={info.character || null}/>
+              character={info.character || null}
+              date={info.release_date || info.first_air_date || null}/>
         ));
         return(cardsArray)
     }

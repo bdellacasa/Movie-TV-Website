@@ -7,6 +7,16 @@ import ClientService from '../services/ClientService';
 import Screen from '../screens/Screen';
 import List from '../components/List';
 import Paginator from '../components/Paginator';
+
+const screenDependantStyle = window.matchMedia("(max-width: 420px)").matches ? 
+    {
+        marginTop: '5vh',
+        marginLeft: '6vw'
+    } : 
+    {
+        marginTop: '5vh',
+        marginLeft: '15vw'
+    }
 export class ListScreen extends Component {
     constructor(props) {
         super(props)
@@ -74,7 +84,10 @@ export class ListScreen extends Component {
     renderContent() {
         return(
             <div style={{ alignContent: 'center' }}>
-                {this.state.type == CONTENT_TYPE.SEARCH && <Search classname={"search-container"}/>}
+                {this.state.type == CONTENT_TYPE.SEARCH && 
+                    <div style={screenDependantStyle}>
+                        <Search/>
+                    </div>}
                 {this.state.data && <List data={this.state.data} type={this.state.type}/>}
                 {!!this.state.data && this.state.data.length > 0 && <Paginator totalPages={this.state.totalPages} maxPagesToShow={20} paginate={page => this.getContent(page)}/>}
             </div>

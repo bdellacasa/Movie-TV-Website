@@ -28,8 +28,13 @@ class ClientServiceImpl extends Component {
         }
         return fetch(url, otherParams)
         .then(result => {
-            console.log("GET "+url+" OK");
-            return result.json();
+            if (result.status != '404') {
+                console.log("GET "+url+" OK");
+                return result.json();
+            } else {
+                console.log("ERROR GET "+url+" ", result.status)
+                return null;
+            }
         })
         .catch(error => { 
             console.log("ERROR GET "+url+" ", error)
