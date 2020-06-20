@@ -7,7 +7,7 @@ import { CONTENT_TYPE } from '../Constants';
 
 const sizeScreenDependantProps = window.matchMedia("(max-width: 420px)").matches ? 
     {
-        cardsPerSlide: 1,
+        cardsPerSlide: 2,
         slidesToScroll: 1,
         dots: false
     } :

@@ -6,8 +6,8 @@ import '../styles/CarouselStyles.css';
 import image_not_available from '../no_image.jpeg';
 
 const IMAGE_BASE = ClientService.IMAGE_BASE_URL+ClientService.POSTER_SIZE;
-
 const placeholderItem = <div style={{ height: 300, width: 200, borderRadius: '2em', background: '#EEE' }} />;
+const showButton = !window.matchMedia("(max-width: 420px)").matches;
 export default class Carousel extends Component {
   constructor(props) {
       super(props)
@@ -62,7 +62,7 @@ export default class Carousel extends Component {
   renderPlaceholders() {
     const items = [...Array(this.props.cardsPerSlide)].fill(placeholderItem);
     return (
-      <div className={"carousel-container"}>
+      <div className={"carousel"}>
         <p className={"carousel-title"}>{this.props.name}</p>
         <div style={{display: 'flex', flexDirection: 'row', width: '70vw', justifyContent: 'space-between', marginLeft: '100px'}}>
           {items}
@@ -78,17 +78,18 @@ export default class Carousel extends Component {
       speed: 500,
       slidesToShow: this.props.cardsPerSlide,
       slidesToScroll: this.props.slidesToScroll,
-      draggable: false
+      draggable: false,
+      arrows: false
     };
     return (
-      <div className={"carousel-container"}>
+      <div className={"carousel"}>
         <p className={"carousel-title"}>{this.props.name}</p>
-        <div style={{display: 'flex', flexDirection: 'row', width: '80vw'}}>
-          <button className={"carousel-button"} style={{marginRight: '20px'}} onClick={this.prev}>{"<"}</button>
+        <div className={"carousel-container"}>
+          {showButton && <button className={"carousel-button"} onClick={this.prev}>{"<"}</button>}
           <Slider ref={Ref => this.slider = Ref} {...settings} style={{width: '80%'}}>
             {items}
           </Slider>
-          <button className={"carousel-button"} style={{marginLeft: '20px'}} onClick={this.next}>{">"}</button>
+          {showButton && <button className={"carousel-button"} onClick={this.next}>{">"}</button>}
         </div>
       </div>
     );

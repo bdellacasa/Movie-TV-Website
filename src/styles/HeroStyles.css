@@ -1,7 +1,7 @@
 /* Hero styles */
 .hero-background {
     width: 100vw;
-    height: 500px;
+    height: 600px;
     margin-top: 0px;
     background-size: cover;
     align-content: center;
@@ -9,7 +9,7 @@
 
 .hero-opacity {
     background: rgb(0, 0, 0, 0.3);
-    height: 500px;
+    height: 600px;
 }
 
 .hero-content-container {
@@ -34,6 +34,11 @@
 @media screen and (max-width: 508px) {
     .hero-background {
         width: 132vw;
+        height: 500px;
+    }
+
+    .hero-opacity {
+        height: 500px;
     }
 
     .hero-content-container {

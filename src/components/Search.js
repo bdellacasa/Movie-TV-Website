@@ -1,54 +1,40 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import ClienteService from '../services/ClientService';
-import SearchIcon from '../icons/search-24px.svg';
-import { CONTENT_TYPE } from '../Constants';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-export default class Search extends Component {
-  state = {
-    query: '',
-    toResults: false
+const Search = () => {
+  const [query, setQuery] = useState('');
+  const history = useHistory();
+
+  const handleChange = (event) => {
+    setQuery(event.target.value)
   }
 
-  handleInputChange = () => {
-    this.setState({
-      query: this.search.value
-    })
-  }
-
-  navigate() {
-    if (this.state.query.length > 0) {
-      this.setState({
-        toResults: true
-      });
+  const navigate = () => {
+    if (query.length > 0) {
+      history.push(`/list/search/${query}`);
     }
   }
 
-  handleOnKeyPress = (event) => {
-    if (event.charCode == '13'){
-        // Enter pressed
-        this.navigate();
+  const handleOnKeyDown = (event) => {
+    if (event.keyCode == '13'){
+      navigate(); // Enter pressed
     }
   }
 
-  render() {
-    if (this.state.toResults === true) {
-      return <Redirect to={`/list/search/${this.state.query}`} />
-    }
-    return (
-        <div className={"search-container"}>
-            <form>
-                <input
-                    id={"search_form"}
-                    className={"search-form"}
-                    placeholder="Search for movie, serie or person..."
-                    ref={input => this.search = input}
-                    onChange={this.handleInputChange}
-                    onKeyPress={this.handleOnKeyPress}
-                />
-            </form>
-            <button className={"search-button"} onClick={() => this.navigate()}>Search</button>
-        </div>
-    )
-  }
+  return (
+      <div className={"search-container"}>
+          <form>
+              <input
+                  id={"search_form"}
+                  className={"search-form"}
+                  placeholder="Search for movie, serie or person..."
+                  onChange={handleChange}
+                  onKeyDown={e => handleOnKeyDown(e)}
+              />
+          </form>
+          <button className={"search-button"} onClick={() => navigate()}>Search</button>
+      </div>
+  )
 }
+
+export default Search;
