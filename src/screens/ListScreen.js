@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CONTENT_TYPE, minScreen } from '../Constants';
 import '../styles/PaginatorStyles.css';
 import '../styles/ListStyles.css';
@@ -17,36 +17,38 @@ const screenDependantStyle = minScreen ?
         marginTop: '5vh',
         marginLeft: '15vw'
     }
-export class ListScreen extends Component {
-    constructor(props) {
-        super(props)
 
-        this.state = {
-            type: undefined,
-            data: [],
-            totalPages: 0
+const ListScreen = (props) => {
+    const [type, setType] = useState(undefined);
+    const [data, setData] = useState([]);
+    const [totalPages, setTotalPages] = useState(0);
+
+    useEffect(() => {
+        if (!data.length && totalPages==0) {
+            getContent(1);
         }
-    }
+    }, [data, props.location])
 
-    updateContent(type, result) {
+    const updateContent = (type, result) => {
         if (!!result) {
-            this.setState({
-                type: type,
-                data: result.results,
-                totalPages: result.total_pages
-            })
+            setType(type);
+            setTotalPages(result.total_pages);
+            setData(result.results);
         } else {
-            this.setState({
-                type: type,
-                data: [],
-                totalPages: 0
-            })
+            setType(type);
+            setTotalPages(0);
+            setData([]);
         }
     }
 
-    async getContent(page) {
+    const searchItem = async(query, page) => {
+        const result = await ClientService.searchItem(query, page);
+        return result;
+    }
+
+    const getContent = async(page) => {
         let result;
-        const path = this.props.location.pathname.split("/");
+        const path = props.location.pathname.split("/");
         const type = path[1] === CONTENT_TYPE.SEARCH ? path[1] : path[2];
         switch (type) {
             case CONTENT_TYPE.MOVIES:
@@ -59,48 +61,33 @@ export class ListScreen extends Component {
                 result = await ClientService.getPopularPeople(page);
                 break;
             case CONTENT_TYPE.SEARCH: 
-                result = await this.searchItem(path[3], page)
+                result = await searchItem(path[3], page)
             default:
                 break;
         }
-        this.updateContent(type, result, page)
+        updateContent(type, result, page);
     }
 
-    componentDidMount() {
-        this.getContent(1);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.location !== prevProps.location) {
-            this.getContent(1);
-        }
-    }
-
-    searchItem = async (query, page) => {
-        const result = await ClientService.searchItem(query, page);
-        return result;
-    }
-
-    renderContent() {
+    const renderContent = () => {
         return(
             <div style={{ alignContent: 'center' }}>
-                {this.state.type == CONTENT_TYPE.SEARCH && 
+                {type == CONTENT_TYPE.SEARCH && 
                     <div style={screenDependantStyle}>
                         <Search/>
                     </div>}
-                {this.state.data && <List data={this.state.data} type={this.state.type}/>}
-                {!!this.state.data && this.state.data.length > 0 && <Paginator totalPages={this.state.totalPages} maxPagesToShow={20} paginate={page => this.getContent(page)}/>}
+                {data && <List data={data} type={type}/>}
+                {!!data && data.length > 0 && <Paginator totalPages={totalPages} maxPagesToShow={20} paginate={page => getContent(page)}/>}
             </div>
         )
     }
 
-    render() {
-        return (
-            <Screen
-                content={
-                    this.renderContent()
-                }
-            />
-        );
-   }
+    return (
+        <Screen
+            content={
+                renderContent()
+            }
+        />
+    );
 }
+
+export default ListScreen;

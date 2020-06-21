@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClientService from '../services/ClientService';
 import Screen from './Screen';
 import ContentInfo from '../components/ContentInfo';
@@ -6,26 +6,25 @@ import { CONTENT_TYPE, sizeScreenCarouselProps } from '../Constants';
 import Carousel from '../components/Carousel';
 
 /** Screen detail for movies and series */
-let i = 1;
-export class ContentDetailScreen extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            type: undefined,
-            content: undefined,
-            cast: undefined
-        }
-    }
+const ContentDetailScreen = (props) => {
+    const [content, setContent] = useState(undefined);
+    const [cast, setCast] = useState(undefined);
 
-    async fetchData(id, type) {
+    useEffect(() => {
+        if (!content && !cast) {
+            getData();
+        }
+    },[content, cast])
+
+    const fetchData = async(id, _type) => {
         let content, credit, cast = undefined;
-        if (type === CONTENT_TYPE.MOVIES) {
+        if (_type === CONTENT_TYPE.MOVIES) {
             [content, credit] = await Promise.all([ClientService.getMovieDetail(id), ClientService.getMovieCredit(id)]);
-        } else if (type == CONTENT_TYPE.TV){
+        } else if (_type == CONTENT_TYPE.TV){
             [content, credit] = await Promise.all([ClientService.getTVDetail(id), ClientService.getTVCredit(id)]);
         }
   
-        if (type !== CONTENT_TYPE.PERSON && credit) {
+        if (_type !== CONTENT_TYPE.PERSON && credit) {
             cast = credit.cast.map(c => {
                 return {
                     id: c.id,
@@ -35,35 +34,21 @@ export class ContentDetailScreen extends Component {
                 }
             })
         }
-
-        this.setState({
-            type: type,
-            content: content,
-            cast: cast
-        })
+        setContent(content);
+        setCast(cast);
     }
 
     //path = /detail/contentType/id
-    getData() {
-        const path = this.props.location.pathname.split("/");
-        this.fetchData(path[3], path[2]);
-    }
-    
-    componentDidMount() {
-       this.getData();
+    const getData = () => {
+        const path = props.location.pathname.split("/");
+        fetchData(path[3], path[2]);
     }
 
-    componentDidUpdate(prevProps) {
-        if (!this.state.content && !this.state.cast) {
-            this.getData();
-        }
-    }
-
-    renderCast() {
+    const renderCast = () => {
         return (
             <div style={{marginTop: '30px'}}>
                 <Carousel 
-                    data={this.state.cast}
+                    data={cast}
                     name={"Cast"}
                     cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
                     slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
@@ -75,32 +60,32 @@ export class ContentDetailScreen extends Component {
     }
     
     
-    renderContent() {
+    const renderContent = () => {
         return(
             <div>
-                {this.state.content && <ContentInfo
-                    id={this.state.content.id}
-                    title={this.state.content.title || this.state.content.original_name}
-                    tagline={this.state.content.tagline}
-                    description={this.state.content.overview}
-                    releaseDate={this.state.content.release_date}
-                    backdropUrl={ClientService.IMAGE_BASE_URL+ClientService.BACKDROP_SIZE+this.state.content.backdrop_path}
-                    posterUrl={ClientService.IMAGE_BASE_URL+ClientService.POSTER_SIZE+this.state.content.poster_path}
-                    genres={this.state.content.genres}
-                    ranking={this.state.content.vote_average}
+                {content && <ContentInfo
+                    id={content.id}
+                    title={content.title || content.original_name}
+                    tagline={content.tagline}
+                    description={content.overview}
+                    releaseDate={content.release_date}
+                    backdropUrl={ClientService.IMAGE_BASE_URL+ClientService.BACKDROP_SIZE+content.backdrop_path}
+                    posterUrl={ClientService.IMAGE_BASE_URL+ClientService.POSTER_SIZE+content.poster_path}
+                    genres={content.genres}
+                    ranking={content.vote_average}
                 />}
-                {this.state.cast && this.renderCast()}
+                {cast && renderCast()}
             </div>
         )
     }
 
-    render() {
-        return (
-            <Screen
-                content={
-                    this.renderContent()
-                }
-            />
-        );
-   }
+    return (
+        <Screen
+            content={
+                renderContent()
+            }
+        />
+    );
 }
+
+export default ContentDetailScreen;

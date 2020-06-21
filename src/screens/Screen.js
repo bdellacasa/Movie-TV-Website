@@ -3,7 +3,7 @@ import '../styles/ScreenStyles.css';
 import Header from '../components/Header';
 import Logo from '../icons/logo-moviedb.svg';
 
-function Screen(props) {
+const Screen = (props) => {
   return (
     <div className="screen">
       <Header/>

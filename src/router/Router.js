@@ -1,16 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
-import { Index } from "../screens/IndexScreen";
-import { ListScreen } from '../screens/ListScreen';
-import { ContentDetailScreen } from '../screens/ContentDetailScreen';
+import Index from "../screens/IndexScreen";
+import ListScreen from '../screens/ListScreen';
+import ContentDetailScreen from '../screens/ContentDetailScreen';
 import { CONTENT_TYPE } from '../Constants';
 
 /**
  * Router that manages the navigation of the application
  */
 
-function ApplicationRouter() {
+const ApplicationRouter = () => {
     return(
         <Router>
             <Route exact path="/" component={Index} />

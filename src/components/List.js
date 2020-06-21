@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../styles/ListStyles.css';
 import Card from './ListCard';
 import { CONTENT_TYPE, IMAGE_BASE_URL } from '../Constants';
-export default class List extends Component {
-    getCardsArray() {
-        const cardsArray = this.props.data.map((info, idx) => (
+
+const List = (props) =>  {
+    const getCardsArray = () => {
+        const cardsArray = props.data.map((info, idx) => (
             <Card
               key={idx}
               id={info.id}
-              type={info.media_type || this.props.type}
-              isSearchList={this.props.type == CONTENT_TYPE.SEARCH}
+              type={info.media_type || props.type}
+              isSearchList={props.type == CONTENT_TYPE.SEARCH}
               name={info.title || info.name}
               description={info.overview || null}
               image={IMAGE_BASE_URL+(info.poster_path || info.profile_path)}
@@ -19,11 +20,11 @@ export default class List extends Component {
         return(cardsArray)
     }
 
-    render() {
-        return(
-            <div className={"list"}>
-                {this.getCardsArray()}
-            </div>
-        )
-    }
+    return(
+        <div className={"list"}>
+            {getCardsArray()}
+        </div>
+    )
 }
+
+export default List;

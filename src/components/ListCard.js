@@ -1,46 +1,41 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import image_not_available from '../no_image.jpeg';
 import { Redirect } from 'react-router-dom';
 import '../styles/ListStyles.css';
 import { CONTENT_TYPE } from '../Constants';
-export default class ListCard extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            toDetail: false
-        }
-    }
+
+const ListCard = (props) => {
+    const [toDetail, setToDetail] = useState(false);
     
-    handleClickEvent() {
-       this.setState({
-           toDetail: true
-       })
+    const handleClickEvent = () => {
+       setToDetail(true);
     }
 
-    renderContent() {
-        const date = this.props.date ? new Date(this.props.date).toDateString() : '';
-        const text = this.props.type == CONTENT_TYPE.PERSON ? this.props.character || '' : date || '';
+    const renderContent = () => {
+        const date = props.date ? new Date(props.date).toDateString() : '';
+        const text = props.type == CONTENT_TYPE.PERSON ? props.character || '' : date || '';
         return (
             <div>
-                <p className={"list-card-title"}>{this.props.name}</p>
+                <p className={"list-card-title"}>{props.name}</p>
                 <p className={"list-card-description"}>{text}</p>
             </div>
         )
     }
    
-    onImgError(ev){
+    const onImgError = (ev) => {
         ev.target.src = image_not_available;
     }
 
-    render() {
-        if ((this.state.toDetail) && this.props.type !== CONTENT_TYPE.PERSON) {
-            return <Redirect to={`/detail/${this.props.type}/${this.props.id}`} />
-        }
+    if (toDetail && props.type !== CONTENT_TYPE.PERSON) {
+        return <Redirect to={`/detail/${props.type}/${props.id}`} />
+    } else {
         return(
-            <div className={this.props.character ? "list-card-carousel" : "list-card"} onClick={() => this.handleClickEvent()}>
-                <img onError={this.onImgError} className={this.props.character ? "list-card-carousel-image" : "list-card-image"} src={this.props.image}/>
-                {this.renderContent()}
+            <div className={props.character ? "list-card-carousel" : "list-card"} onClick={handleClickEvent}>
+                <img onError={onImgError} className={props.character ? "list-card-carousel-image" : "list-card-image"} src={props.image}/>
+                {renderContent()}
             </div>
         )
     }
 }
+
+export default ListCard;

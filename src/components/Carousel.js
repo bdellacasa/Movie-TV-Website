@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 import '../styles/CarouselStyles.css';
@@ -7,56 +7,35 @@ import image_not_available from '../no_image.jpeg';
 import Card from '../components/ListCard';
 
 const placeholderItem = <div style={{ height: 300, width: 200, borderRadius: '2em', background: '#EEE' }} />;
-export default class Carousel extends Component {
-  constructor(props) {
-      super(props)
-      this.state = {
-          items: [],
-          showButton: true
-      }
-      this.prev = this._prev.bind(this);
-      this.next = this._next.bind(this);
-  }
 
-  componentDidMount() {
-    if (!!this.props.data) {
-      setTimeout(() => {
-          const items = this.createItems();
-          this.setState({
-            items: items,
-          })
+const Carousel = (props) => {
+  const [items, setItems] = useState([]);
+  const [showButton, setShowButton] = useState(true);
+  let slider = useRef(null);
 
-          this.setState({
-            showButton: !this.props.indexCarousel ? !minScreen && this.props.data.length > this.props.cardsPerSlide : !minScreen
-          })
-      }, 100);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-      if((prevProps.data !== this.props.data) && (!!this.props.data)) {
+  useEffect(() => {
+      if (!!props.data ) {
         setTimeout(() => {
-            const items = this.createItems();
-            this.setState({
-              items: items,
-            })
+          let items = createItems();
+          setItems(items);
+          setShowButton(!props.indexCarousel ? !minScreen && props.data.length > props.cardsPerSlide : !minScreen);
         }, 100);
       }
-  }
+  }, [props.data])
 
-  onImgError(ev){
+  const onImgError = (ev) => {
     ev.target.src = image_not_available;
   }
 
-  homeItems = () => {
+  const homeItems = () => {
     let date;
-    return this.props.data.map((item, idx) => {
+    return props.data.map((item, idx) => {
       date = new Date(item.release_date || item.first_air_date);
       return(
           <div key={idx} className={"carousel-home-item"}>
-             <Link className={"carousel-nav"} style={{textDecoration: 'none'}} to={`detail/${this.props.type}/${item.id}`}>
-                <img onError={this.onImgError} src={IMAGE_BASE_URL+item.poster_path} className={"carousel-item-image"}/>
-                <div className={"carousel-item-text-container"} onClick={() => this.setState({ navigate: true, id: item.id })}>
+             <Link className={"carousel-nav"} style={{textDecoration: 'none'}} to={`detail/${props.type}/${item.id}`}>
+                <img onError={onImgError} src={IMAGE_BASE_URL+item.poster_path} className={"carousel-item-image"}/>
+                <div className={"carousel-item-text-container"}>
                     <p style={{fontWeight: 'bold'}}>{item.title || item.name}</p>
                     <p>{date.toDateString()}</p>
                 </div>
@@ -66,14 +45,14 @@ export default class Carousel extends Component {
     })
   }
 
-  castItems = () => {
-      return this.props.data.map((info, idx) => {
+  const castItems = () => {
+      return props.data.map((info, idx) => {
         return(
           <div key={idx} className={"carousel-item"}>
               <Card
                 id={info.id}
-                type={info.media_type || this.props.type}
-                isSearchList={this.props.type == CONTENT_TYPE.SEARCH}
+                type={info.media_type || props.type}
+                isSearchList={props.type == CONTENT_TYPE.SEARCH}
                 name={info.title || info.name}
                 description={info.overview || null}
                 image={IMAGE_BASE_URL+(info.poster_path || info.profile_path)}
@@ -83,23 +62,23 @@ export default class Carousel extends Component {
       )});
   }
 
-  createItems = () => {
-      return this.props.indexCarousel ? this.homeItems() : this.castItems(); 
+  const createItems = () => {
+      return props.indexCarousel ? homeItems() : castItems(); 
   }
 
-  _prev() {
-    this.slider.slickPrev()
+  const prev = () => {
+    slider.slickPrev()
   }
 
-  _next() {
-    this.slider.slickNext()
+  const next = () => {
+    slider.slickNext()
   }
 
-  renderPlaceholders() {
-    const items = [...Array(this.props.cardsPerSlide)].fill(placeholderItem);
+  const renderPlaceholders = () => {
+    const items = [...Array(props.cardsPerSlide)].fill(placeholderItem);
     return (
       <div className={"carousel"}>
-        <p className={"carousel-title"}>{this.props.name}</p>
+        <p className={"carousel-title"}>{props.name}</p>
         <div style={{display: 'flex', flexDirection: 'row', width: '70vw', justifyContent: 'space-between', marginLeft: '100px'}}>
           {items}
         </div>
@@ -107,35 +86,32 @@ export default class Carousel extends Component {
     );
   }
 
-  renderContent(items) {
+  const renderContent = () => {
     let settings = {
-      dots: this.props.dots,
+      dots: props.dots,
       infinite: false,
       speed: 500,
-      slidesToShow: this.props.data.length < this.props.cardsPerSlide ? this.props.data.length : this.props.cardsPerSlide,
-      slidesToScroll: this.props.slidesToScroll,
+      slidesToShow: props.data.length < props.cardsPerSlide ? props.data.length : props.cardsPerSlide,
+      slidesToScroll: props.slidesToScroll,
       draggable: false,
       arrows: false
     };
 
     return (
       <div className={"carousel"}>
-        <p className={"carousel-title"}>{this.props.name}</p>
+        <p className={"carousel-title"}>{props.name}</p>
         <div className={"carousel-container"}>
-          {this.state.showButton && <button className={"carousel-button"} onClick={this.prev}>{"<"}</button>}
-          <Slider ref={Ref => this.slider = Ref} {...settings} style={{width: '80%'}}>
+          {showButton && <button className={"carousel-button"} onClick={prev}>{"<"}</button>}
+          <Slider ref={Ref => slider = Ref} {...settings} style={{width: '80%'}}>
             {items}
           </Slider>
-          {this.state.showButton && <button className={"carousel-button"} onClick={this.next}>{">"}</button>}
+          {showButton && <button className={"carousel-button"} onClick={next}>{">"}</button>}
         </div>
       </div>
     );
   }
 
-  render() {
-    const {
-      items,
-    } = this.state;
-    return (items.length > 0 ? this.renderContent(items) : this.renderPlaceholders())
-  }
+  return (items.length > 0 ? renderContent() : renderPlaceholders())
 }
+
+export default Carousel;
