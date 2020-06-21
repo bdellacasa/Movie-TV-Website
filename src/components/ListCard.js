@@ -29,7 +29,7 @@ export default class ListCard extends Component {
 
     renderContentText() {
         const date = this.props.date ? new Date(this.props.date).toDateString() : '';
-        const text = this.props.type !== CONTENT_TYPE.PERSON ? this.props.character || date : '';
+        const text = this.props.type == CONTENT_TYPE.PERSON ? this.props.character || '' : date || '';
         return (
             <div>
                 <p className={"list-card-title"}>{this.props.name}</p>

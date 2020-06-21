@@ -61,7 +61,7 @@ export class ContentDetailScreen extends Component {
         return (
             <div style={{paddingLeft: '10vw', marginTop: '30px'}}>
                 <p className={"content-info-cast-title"}>Cast</p>
-                <List data={this.state.cast} type={CONTENT_TYPE.MOVIES}/>
+                <List data={this.state.cast} type={CONTENT_TYPE.PERSON}/>
             </div>
         )
     }
