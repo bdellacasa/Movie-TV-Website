@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import ClientService from '../services/ClientService';
 import Screen from './Screen';
 import ContentInfo from '../components/ContentInfo';
-import { CONTENT_TYPE } from '../Constants';
-import List from '../components/List';
+import { CONTENT_TYPE, sizeScreenCarouselProps } from '../Constants';
+import Carousel from '../components/Carousel';
 
 /** Screen detail for movies and series */
-
+let i = 1;
 export class ContentDetailScreen extends Component {
     constructor(props) {
         super(props)
@@ -37,9 +37,9 @@ export class ContentDetailScreen extends Component {
         }
 
         this.setState({
-            type: type || undefined,
-            content: content || undefined,
-            cast: cast || undefined
+            type: type,
+            content: content,
+            cast: cast
         })
     }
 
@@ -53,15 +53,23 @@ export class ContentDetailScreen extends Component {
        this.getData();
     }
 
-    componentDidUpdate() {
-        this.getData();
+    componentDidUpdate(prevProps) {
+        if (!this.state.content && !this.state.cast) {
+            this.getData();
+        }
     }
 
     renderCast() {
         return (
-            <div style={{paddingLeft: '10vw', marginTop: '30px'}}>
-                <p className={"content-info-cast-title"}>Cast</p>
-                <List data={this.state.cast} type={CONTENT_TYPE.PERSON}/>
+            <div style={{marginTop: '30px'}}>
+                <Carousel 
+                    data={this.state.cast}
+                    name={"Cast"}
+                    cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
+                    slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
+                    dots={sizeScreenCarouselProps.dots} 
+                    type={CONTENT_TYPE.PERSON}
+                    indexCarousel={false} />
             </div>
         )
     }

@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import '../styles/ListStyles.css';
 import { CONTENT_TYPE } from '../Constants';
 export default class ListCard extends Component {
-    
     constructor(props) {
         super(props)
         this.state = {
@@ -18,16 +17,7 @@ export default class ListCard extends Component {
        })
     }
 
-    renderPeopleText() {
-        return (
-            <div>
-                <p className={"list-card-title"}>{this.props.name}</p>
-                {this.props.character && <p>{this.props.character}</p>}
-            </div>
-        )
-    }
-
-    renderContentText() {
+    renderContent() {
         const date = this.props.date ? new Date(this.props.date).toDateString() : '';
         const text = this.props.type == CONTENT_TYPE.PERSON ? this.props.character || '' : date || '';
         return (
@@ -47,9 +37,9 @@ export default class ListCard extends Component {
             return <Redirect to={`/detail/${this.props.type}/${this.props.id}`} />
         }
         return(
-            <div className={"list-card"} onClick={() => this.handleClickEvent()}>
-                <img onError={this.onImgError} className={"list-card-image"} src={this.props.image}/>
-                {this.renderContentText()}
+            <div className={this.props.character ? "list-card-carousel" : "list-card"} onClick={() => this.handleClickEvent()}>
+                <img onError={this.onImgError} className={this.props.character ? "list-card-carousel-image" : "list-card-image"} src={this.props.image}/>
+                {this.renderContent()}
             </div>
         )
     }

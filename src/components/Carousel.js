@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Slider from "react-slick";
-import ClientService from '../services/ClientService';
 import '../styles/CarouselStyles.css';
+import { CONTENT_TYPE, IMAGE_BASE_URL, minScreen } from '../Constants';
 import image_not_available from '../no_image.jpeg';
+import Card from '../components/ListCard';
 
-const IMAGE_BASE = ClientService.IMAGE_BASE_URL+ClientService.POSTER_SIZE;
 const placeholderItem = <div style={{ height: 300, width: 200, borderRadius: '2em', background: '#EEE' }} />;
-const showButton = !window.matchMedia("(max-width: 420px)").matches;
 export default class Carousel extends Component {
   constructor(props) {
       super(props)
       this.state = {
-          items: []
+          items: [],
+          showButton: true
       }
       this.prev = this._prev.bind(this);
       this.next = this._next.bind(this);
+  }
+
+  componentDidMount() {
+    if (!!this.props.data) {
+      setTimeout(() => {
+          const items = this.createItems();
+          this.setState({
+            items: items,
+          })
+
+          this.setState({
+            showButton: !this.props.indexCarousel ? !minScreen && this.props.data.length > this.props.cardsPerSlide : !minScreen
+          })
+      }, 100);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -33,22 +48,43 @@ export default class Carousel extends Component {
     ev.target.src = image_not_available;
   }
 
-  createItems = () => {
-      let date;
-      return this.props.data.map((item, idx) => {
-        date = new Date(item.release_date || item.first_air_date);
+  homeItems = () => {
+    let date;
+    return this.props.data.map((item, idx) => {
+      date = new Date(item.release_date || item.first_air_date);
+      return(
+          <div key={idx} className={"carousel-home-item"}>
+             <Link className={"carousel-nav"} style={{textDecoration: 'none'}} to={`detail/${this.props.type}/${item.id}`}>
+                <img onError={this.onImgError} src={IMAGE_BASE_URL+item.poster_path} className={"carousel-item-image"}/>
+                <div className={"carousel-item-text-container"} onClick={() => this.setState({ navigate: true, id: item.id })}>
+                    <p style={{fontWeight: 'bold'}}>{item.title || item.name}</p>
+                    <p>{date.toDateString()}</p>
+                </div>
+              </Link>
+          </div>
+      )
+    })
+  }
+
+  castItems = () => {
+      return this.props.data.map((info, idx) => {
         return(
-            <div key={idx} className={"carousel-item"}>
-               <Link className={"carousel-nav"} style={{textDecoration: 'none'}} to={`detail/${this.props.type}/${item.id}`}>
-                  <img onError={this.onImgError} src={IMAGE_BASE+item.poster_path} className={"carousel-item-image"}/>
-                  <div className={"carousel-item-text-container"} onClick={() => this.setState({ navigate: true, id: item.id })}>
-                      <p style={{fontWeight: 'bold'}}>{item.title || item.name}</p>
-                      <p>{date.toDateString()}</p>
-                  </div>
-                </Link>
-            </div>
-        )
-      })
+          <div key={idx} className={"carousel-item"}>
+              <Card
+                id={info.id}
+                type={info.media_type || this.props.type}
+                isSearchList={this.props.type == CONTENT_TYPE.SEARCH}
+                name={info.title || info.name}
+                description={info.overview || null}
+                image={IMAGE_BASE_URL+(info.poster_path || info.profile_path)}
+                character={info.character || null}
+                date={info.release_date || info.first_air_date || null}/>
+          </div>
+      )});
+  }
+
+  createItems = () => {
+      return this.props.indexCarousel ? this.homeItems() : this.castItems(); 
   }
 
   _prev() {
@@ -76,20 +112,21 @@ export default class Carousel extends Component {
       dots: this.props.dots,
       infinite: false,
       speed: 500,
-      slidesToShow: this.props.cardsPerSlide,
+      slidesToShow: this.props.data.length < this.props.cardsPerSlide ? this.props.data.length : this.props.cardsPerSlide,
       slidesToScroll: this.props.slidesToScroll,
       draggable: false,
       arrows: false
     };
+
     return (
       <div className={"carousel"}>
         <p className={"carousel-title"}>{this.props.name}</p>
         <div className={"carousel-container"}>
-          {showButton && <button className={"carousel-button"} onClick={this.prev}>{"<"}</button>}
+          {this.state.showButton && <button className={"carousel-button"} onClick={this.prev}>{"<"}</button>}
           <Slider ref={Ref => this.slider = Ref} {...settings} style={{width: '80%'}}>
             {items}
           </Slider>
-          {showButton && <button className={"carousel-button"} onClick={this.next}>{">"}</button>}
+          {this.state.showButton && <button className={"carousel-button"} onClick={this.next}>{">"}</button>}
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CONTENT_TYPE } from '../Constants';
+import { CONTENT_TYPE, minScreen } from '../Constants';
 import '../styles/PaginatorStyles.css';
 import '../styles/ListStyles.css';
 import Search from '../components/Search';
@@ -8,7 +8,7 @@ import Screen from '../screens/Screen';
 import List from '../components/List';
 import Paginator from '../components/Paginator';
 
-const screenDependantStyle = window.matchMedia("(max-width: 420px)").matches ? 
+const screenDependantStyle = minScreen ? 
     {
         marginTop: '5vh',
         marginLeft: '6vw'

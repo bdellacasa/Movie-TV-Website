@@ -3,19 +3,8 @@ import ClientService from '../services/ClientService';
 import Screen from '../screens/Screen';
 import Hero from '../components/Hero';
 import Carousel from '../components/Carousel';
-import { CONTENT_TYPE } from '../Constants';
+import { CONTENT_TYPE, sizeScreenCarouselProps } from '../Constants';
 
-const sizeScreenDependantProps = window.matchMedia("(max-width: 420px)").matches ? 
-    {
-        cardsPerSlide: 2,
-        slidesToScroll: 1,
-        dots: false
-    } :
-    {
-        cardsPerSlide: 5,
-        slidesToScroll: 3,
-        dots: true
-    };
 export class Index extends Component {
     constructor(props) {
         super(props)
@@ -59,45 +48,51 @@ export class Index extends Component {
                 <Carousel 
                     data={this.state.carouselPopularMovies}
                     name={"Popular Movies"}
-                    cardsPerSlide={sizeScreenDependantProps.cardsPerSlide}
-                    slidesToScroll={sizeScreenDependantProps.slidesToScroll}
-                    dots={sizeScreenDependantProps.dots} 
-                    type={CONTENT_TYPE.MOVIES} />
+                    cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
+                    slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
+                    dots={sizeScreenCarouselProps.dots} 
+                    type={CONTENT_TYPE.MOVIES}
+                    indexCarousel={true} />
                 <Carousel 
                     data={this.state.carouselMoviesTopRated}
                     name={"Movies top rated"}
-                    cardsPerSlide={sizeScreenDependantProps.cardsPerSlide}
-                    slidesToScroll={sizeScreenDependantProps.slidesToScroll}
-                    dots={sizeScreenDependantProps.dots} 
-                    type={CONTENT_TYPE.MOVIES} />
+                    cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
+                    slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
+                    dots={sizeScreenCarouselProps.dots} 
+                    type={CONTENT_TYPE.MOVIES}
+                    indexCarousel={true} />
                 <Carousel 
                     data={this.state.carouselMoviesUpcoming}
                     name={"Movies upcoming"}
-                    cardsPerSlide={sizeScreenDependantProps.cardsPerSlide}
-                    slidesToScroll={sizeScreenDependantProps.slidesToScroll}
-                    dots={sizeScreenDependantProps.dots}
-                    type={CONTENT_TYPE.MOVIES}/>
+                    cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
+                    slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
+                    dots={sizeScreenCarouselProps.dots}
+                    type={CONTENT_TYPE.MOVIES}
+                    indexCarousel={true} />
                 <Carousel 
                     data={this.state.carouselPopularTV}
                     name={"Popular TV"}
-                    cardsPerSlide={sizeScreenDependantProps.cardsPerSlide}
-                    slidesToScroll={sizeScreenDependantProps.slidesToScroll}
-                    dots={sizeScreenDependantProps.dots} 
-                    type={CONTENT_TYPE.TV}/>
+                    cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
+                    slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
+                    dots={sizeScreenCarouselProps.dots} 
+                    type={CONTENT_TYPE.TV}
+                    indexCarousel={true} />
                 <Carousel 
                     data={this.state.carouselTVTopRated}
                     name={"TV top rated"}
-                    cardsPerSlide={sizeScreenDependantProps.cardsPerSlide}
-                    slidesToScroll={sizeScreenDependantProps.slidesToScroll}
-                    dots={sizeScreenDependantProps.dots} 
-                    type={CONTENT_TYPE.TV}/>
+                    cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
+                    slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
+                    dots={sizeScreenCarouselProps.dots} 
+                    type={CONTENT_TYPE.TV}
+                    indexCarousel={true} />
                 <Carousel 
                     data={this.state.carouselTVAiringToday}
                     name={"TV airing today"}
-                    cardsPerSlide={sizeScreenDependantProps.cardsPerSlide}
-                    slidesToScroll={sizeScreenDependantProps.slidesToScroll}
-                    dots={sizeScreenDependantProps.dots} 
-                    type={CONTENT_TYPE.TV}/>
+                    cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
+                    slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
+                    dots={sizeScreenCarouselProps.dots} 
+                    type={CONTENT_TYPE.TV}
+                    indexCarousel={true} />
             </div>
         )
     }

@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/ListStyles.css';
 import Card from './ListCard';
-import ClientService from '../services/ClientService';
-import { CONTENT_TYPE } from '../Constants';
-
-const IMAGE_BASE_URL = ClientService.IMAGE_BASE_URL+ClientService.POSTER_SIZE;
+import { CONTENT_TYPE, IMAGE_BASE_URL } from '../Constants';
 export default class List extends Component {
-
     getCardsArray() {
         const cardsArray = this.props.data.map((info, idx) => (
             <Card
