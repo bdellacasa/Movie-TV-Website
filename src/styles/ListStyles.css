@@ -24,6 +24,7 @@
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.4);
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
+    background-color: rgb(150, 147, 147); 
 }
 
 .list-card-description {
@@ -37,11 +38,9 @@
 }
 
 .list-card-title {
-    width: 200px;
     font-weight: bold;
     margin-top: 1.5vh;
     font-size: 1em;
-    margin-left: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
