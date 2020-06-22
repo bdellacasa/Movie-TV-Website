@@ -54,6 +54,10 @@ class ClientServiceImpl extends Component {
         return this.get("/movie/upcoming", page)
     }
 
+    getMovieVideos = (id) => {
+        return this.get(`/movie/${id}/videos`);
+    }
+
     getTVLatest = (page) => {
         return this.get("/tv/latest", page)
     }
@@ -92,6 +96,10 @@ class ClientServiceImpl extends Component {
 
     getTVCredit = (id) => {
         return this.get(`/tv/${id}/credits`);
+    }
+
+    getTVVideos = (id) => {
+        return this.get(`/tv/${id}/videos`);
     }
 
     searchItem = async (query, page) => {

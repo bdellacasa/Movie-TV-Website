@@ -4,11 +4,14 @@ import Screen from './Screen';
 import ContentInfo from '../components/ContentInfo';
 import { CONTENT_TYPE, sizeScreenCarouselProps } from '../Constants';
 import Carousel from '../components/Carousel';
+import VideoPlayer from '../components/VideoPlayer';
+import '../styles/DetailStyles.css';
 
 /** Screen detail for movies and series */
 const ContentDetailScreen = (props) => {
     const [content, setContent] = useState(undefined);
     const [cast, setCast] = useState(undefined);
+    const [video, setVideo] = useState(undefined);
 
     useEffect(() => {
         if (!content && !cast) {
@@ -17,22 +20,28 @@ const ContentDetailScreen = (props) => {
     },[content, cast])
 
     const fetchData = async(id, _type) => {
-        let content, credit, cast = undefined;
+        let content, credit, cast, videos = undefined;
         if (_type === CONTENT_TYPE.MOVIES) {
-            [content, credit] = await Promise.all([ClientService.getMovieDetail(id), ClientService.getMovieCredit(id)]);
+            [content, credit, videos] = await Promise.all([ClientService.getMovieDetail(id), ClientService.getMovieCredit(id), ClientService.getMovieVideos(id)]);
         } else if (_type == CONTENT_TYPE.TV){
-            [content, credit] = await Promise.all([ClientService.getTVDetail(id), ClientService.getTVCredit(id)]);
+            [content, credit, videos] = await Promise.all([ClientService.getTVDetail(id), ClientService.getTVCredit(id), ClientService.getTVVideos(id)]);
         }
   
-        if (_type !== CONTENT_TYPE.PERSON && credit) {
-            cast = credit.cast.map(c => {
-                return {
-                    id: c.id,
-                    character: c.character,
-                    name: c.name,
-                    profile_path: c.profile_path
-                }
-            })
+        if (_type !== CONTENT_TYPE.PERSON) {
+            if (credit) {
+                cast = credit.cast.map(c => {
+                    return {
+                        id: c.id,
+                        character: c.character,
+                        name: c.name,
+                        profile_path: c.profile_path
+                    }
+                })
+            }
+
+            if (videos && videos.results) {
+                setVideo(videos.results.find(video => video.type == "Trailer"))
+            }
         }
         setContent(content);
         setCast(cast);
@@ -42,6 +51,17 @@ const ContentDetailScreen = (props) => {
     const getData = () => {
         const path = props.location.pathname.split("/");
         fetchData(path[3], path[2]);
+    }
+
+    const renderVideo = () => {
+        return(
+            <div style={{marginTop: '30px'}}>
+                <p className={"detail-video-title"}>Trailer</p>
+                <div className={"detail-video"}>
+                    <VideoPlayer videoId={video.key}/>
+                </div>
+            </div>
+        )
     }
 
     const renderCast = () => {
@@ -75,6 +95,7 @@ const ContentDetailScreen = (props) => {
                     ranking={content.vote_average}
                 />}
                 {cast && renderCast()}
+                {video && renderVideo()}
             </div>
         )
     }

@@ -1,0 +1,22 @@
+.detail-video {
+    margin-top: 5vh; 
+    margin-left: 5vw;
+}
+
+.detail-video-title {
+    margin-top: 10vh;
+    text-align: start;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 15vw;
+}
+
+@media screen and (max-width: 420px) {
+    .detail-video {
+        margin-left: 1vw;
+    }
+
+    .detail-video-title {
+        margin-left: 20vw;  
+    }
+}
