@@ -13,10 +13,10 @@
 
 @media screen and (max-width: 420px) {
     .detail-video {
-        margin-left: 1vw;
+        margin-left: -4vw;
     }
 
     .detail-video-title {
-        margin-left: 20vw;  
+        margin-left: 10vw;  
     }
 }

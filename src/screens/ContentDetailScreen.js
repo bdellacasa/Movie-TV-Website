@@ -17,16 +17,16 @@ const ContentDetailScreen = (props) => {
         if (!content && !cast) {
             getData();
         }
-    },[content, cast])
+    }, [content, cast])
 
-    const fetchData = async(id, _type) => {
-        let content, credit, cast, videos = undefined;
+    const fetchData = async (id, _type) => {
+        let content, credit, cast, videos;
         if (_type === CONTENT_TYPE.MOVIES) {
             [content, credit, videos] = await Promise.all([ClientService.getMovieDetail(id), ClientService.getMovieCredit(id), ClientService.getMovieVideos(id)]);
-        } else if (_type == CONTENT_TYPE.TV){
+        } else if (_type === CONTENT_TYPE.TV) {
             [content, credit, videos] = await Promise.all([ClientService.getTVDetail(id), ClientService.getTVCredit(id), ClientService.getTVVideos(id)]);
         }
-  
+
         if (_type !== CONTENT_TYPE.PERSON) {
             if (credit) {
                 cast = credit.cast.map(c => {
@@ -40,7 +40,7 @@ const ContentDetailScreen = (props) => {
             }
 
             if (videos && videos.results) {
-                setVideo(videos.results.find(video => video.type == "Trailer"))
+                setVideo(videos.results.find(video => video.type === "Trailer"))
             }
         }
         setContent(content);
@@ -54,11 +54,11 @@ const ContentDetailScreen = (props) => {
     }
 
     const renderVideo = () => {
-        return(
-            <div style={{marginTop: '30px'}}>
+        return (
+            <div style={{ marginTop: '30px' }}>
                 <p className={"detail-video-title"}>Trailer</p>
                 <div className={"detail-video"}>
-                    <VideoPlayer videoId={video.key}/>
+                    <VideoPlayer videoId={video.key} />
                 </div>
             </div>
         )
@@ -66,22 +66,22 @@ const ContentDetailScreen = (props) => {
 
     const renderCast = () => {
         return (
-            <div style={{marginTop: '30px'}}>
-                <Carousel 
+            <div style={{ marginTop: '30px' }}>
+                <Carousel
                     data={cast}
                     name={"Cast"}
                     cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
                     slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
-                    dots={sizeScreenCarouselProps.dots} 
+                    dots={sizeScreenCarouselProps.dots}
                     type={CONTENT_TYPE.PERSON}
                     indexCarousel={false} />
             </div>
         )
     }
-    
-    
+
+
     const renderContent = () => {
-        return(
+        return (
             <div>
                 {content && <ContentInfo
                     id={content.id}
@@ -89,8 +89,8 @@ const ContentDetailScreen = (props) => {
                     tagline={content.tagline}
                     description={content.overview}
                     releaseDate={content.release_date}
-                    backdropUrl={ClientService.IMAGE_BASE_URL+ClientService.BACKDROP_SIZE+content.backdrop_path}
-                    posterUrl={ClientService.IMAGE_BASE_URL+ClientService.POSTER_SIZE+content.poster_path}
+                    backdropUrl={ClientService.IMAGE_BASE_URL + ClientService.BACKDROP_SIZE + content.backdrop_path}
+                    posterUrl={ClientService.IMAGE_BASE_URL + ClientService.POSTER_SIZE + content.poster_path}
                     genres={content.genres}
                     ranking={content.vote_average}
                 />}

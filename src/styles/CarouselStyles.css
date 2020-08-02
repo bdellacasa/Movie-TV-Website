@@ -1,4 +1,4 @@
-.carousel {
+.home-carousel, .cast-carousel{
     width: 70vw;
     margin-top: 60px;
     margin-left: 15%;
@@ -77,8 +77,13 @@
 }
 
 @media screen and (max-width: 420px) {
-    .carousel {
+    .home-carousel {
         max-width: 80vw;
+        margin-left: 10px;
+    }
+
+    .cast-carousel {
+        margin-left: 2vw;
     }
 
     .carousel-title {
@@ -86,8 +91,11 @@
     }
 
     .carousel-home-item {
-        margin-left: 10px;
         width: 180px;
+    }
+
+    .carousel-item {
+        margin-left: 10px;
     }
 
     .carousel-container {

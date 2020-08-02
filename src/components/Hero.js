@@ -2,9 +2,9 @@ import React from 'react';
 import '../styles/HeroStyles.css';
 import Search from './Search';
 
-const Hero = (props) => {
+const Hero = ({ imageUrl }) => {
     return(
-      <div className={"hero-background"} style={{backgroundImage: `url(${props.imageUrl})`}}>
+      <div className={"hero-background"} style={{backgroundImage: `url(${imageUrl})`}}>
         <div className={"hero-opacity"}>
           <div className={"hero-content-container"}>
             <p className={"hero-text"}>Welcome!</p>

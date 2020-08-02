@@ -2,10 +2,10 @@ import React from 'react';
 import YouTube from 'react-youtube';
 import { minScreen } from '../Constants';
 
-const VideoPlayer = (props) => {
+const VideoPlayer = ({ videoId }) => {
     const opts = minScreen ?  {
         height: '320',
-        width: '340'
+        width: '330'
     } :
     {
         height: '720',
@@ -14,7 +14,7 @@ const VideoPlayer = (props) => {
 
     
     return (
-        <YouTube videoId={props.videoId} opts={opts}/>
+        <YouTube videoId={videoId} opts={opts}/>
     );
 };
 

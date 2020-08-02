@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-
+import { Component } from 'react';
 import { API_KEY } from '../config';
 
 const otherParams = {
@@ -28,7 +27,7 @@ class ClientServiceImpl extends Component {
         }
         return fetch(url, otherParams)
         .then(result => {
-            if (result.status != '404') {
+            if (result.status !== '404') {
                 console.log("GET "+url+" OK");
                 return result.json();
             } else {

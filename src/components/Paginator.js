@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-
 import '../styles/PaginatorStyles.css';
 
 const Paginator = ({ totalPages, maxPagesToShow, paginate }) => {
@@ -19,7 +17,7 @@ const Paginator = ({ totalPages, maxPagesToShow, paginate }) => {
                     <PaginationLink onClick={e => { 
                         paginate(currentPage - 1);   
                         setCurrentPage(currentPage - 1);
-                        if ((currentPage - 1) % maxPagesToShow == 0) {
+                        if ((currentPage - 1) % maxPagesToShow === 0) {
                             setInitialValue(currentPage-maxPagesToShow)
                         }
                     }}
@@ -41,7 +39,7 @@ const Paginator = ({ totalPages, maxPagesToShow, paginate }) => {
                     <PaginationLink onClick={e => { 
                         paginate(currentPage + 1);   
                         setCurrentPage(currentPage + 1);
-                        if (currentPage % maxPagesToShow == 0) {
+                        if (currentPage % maxPagesToShow === 0) {
                             setInitialValue(currentPage + 1);
 
                             //checks if it is the last series of pages and it is less than the maximum number of pages to show

@@ -186,19 +186,15 @@
         font-size: 1.1rem;
     }
 
-    .header {
-        width: 116vw;
+    .header-content-container {
+        margin-left: 2%;
     }
 
     .search-button {
-        margin-left: 9px;
-    }
-
-    .screen-footer {
-        width: 116vw;
+        margin-left: 5px;
     }
 
     .search-form {
-        width: 66vw;
+        width: 63vw;
     }
 }

@@ -13,15 +13,26 @@ const Carousel = (props) => {
   const [showButton, setShowButton] = useState(true);
   let slider = useRef(null);
 
+  const {
+    data,
+    indexCarousel,
+    cardsPerSlide,
+    type,
+    name,
+    dots,
+    slidesToScroll,
+  } = props;
+
   useEffect(() => {
-      if (!!props.data ) {
-        setTimeout(() => {
-          let items = createItems();
-          setItems(items);
-          setShowButton(!props.indexCarousel ? !minScreen && props.data.length > props.cardsPerSlide : !minScreen);
-        }, 100);
-      }
-  }, [props.data])
+    if (data) {
+      const timer = setTimeout(() => {
+        let items = createItems();
+        setItems(items);
+        setShowButton(!indexCarousel ? !minScreen && data.length > cardsPerSlide : !minScreen);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [data])
 
   const onImgError = (ev) => {
     ev.target.src = image_not_available;
@@ -29,41 +40,42 @@ const Carousel = (props) => {
 
   const homeItems = () => {
     let date;
-    return props.data.map((item, idx) => {
+    return data.map((item, idx) => {
       date = new Date(item.release_date || item.first_air_date);
-      return(
-          <div key={idx} className={"carousel-home-item"}>
-             <Link className={"carousel-nav"} style={{textDecoration: 'none'}} to={`detail/${props.type}/${item.id}`}>
-                <img onError={onImgError} src={IMAGE_BASE_URL+item.poster_path} className={"carousel-item-image"}/>
-                <div className={"carousel-item-text-container"}>
-                    <p style={{fontWeight: 'bold'}}>{item.title || item.name}</p>
-                    <p>{date.toDateString()}</p>
-                </div>
-              </Link>
-          </div>
+      return (
+        <div key={idx} className={"carousel-home-item"}>
+          <Link className={"carousel-nav"} style={{ textDecoration: 'none' }} to={`detail/${type}/${item.id}`}>
+            <img onError={onImgError} src={IMAGE_BASE_URL + item.poster_path} className={"carousel-item-image"} alt="" />
+            <div className={"carousel-item-text-container"}>
+              <p style={{ fontWeight: 'bold' }}>{item.title || item.name}</p>
+              <p>{date.toDateString()}</p>
+            </div>
+          </Link>
+        </div>
       )
     })
   }
 
   const castItems = () => {
-      return props.data.map((info, idx) => {
-        return(
-          <div key={idx} className={"carousel-item"}>
-              <Card
-                id={info.id}
-                type={info.media_type || props.type}
-                isSearchList={props.type == CONTENT_TYPE.SEARCH}
-                name={info.title || info.name}
-                description={info.overview || null}
-                image={IMAGE_BASE_URL+(info.poster_path || info.profile_path)}
-                character={info.character || null}
-                date={info.release_date || info.first_air_date || null}/>
-          </div>
-      )});
+    return data.map((info, idx) => {
+      return (
+        <div key={idx} className={"carousel-item"}>
+          <Card
+            id={info.id}
+            type={info.media_type || type}
+            isSearchList={type === CONTENT_TYPE.SEARCH}
+            name={info.title || info.name}
+            description={info.overview}
+            image={IMAGE_BASE_URL + (info.poster_path || info.profile_path)}
+            character={info.character}
+            date={info.release_date || info.first_air_date} />
+        </div>
+      )
+    });
   }
 
   const createItems = () => {
-      return props.indexCarousel ? homeItems() : castItems(); 
+    return indexCarousel ? homeItems() : castItems();
   }
 
   const prev = () => {
@@ -75,11 +87,11 @@ const Carousel = (props) => {
   }
 
   const renderPlaceholders = () => {
-    const items = [...Array(props.cardsPerSlide)].fill(placeholderItem);
+    const items = [...Array(cardsPerSlide)].fill(placeholderItem);
     return (
-      <div className={"carousel"}>
-        <p className={"carousel-title"}>{props.name}</p>
-        <div style={{display: 'flex', flexDirection: 'row', width: '70vw', justifyContent: 'space-between', marginLeft: '100px'}}>
+      <div className={"home-carousel"}>
+        <p className={"carousel-title"}>{name}</p>
+        <div style={{ display: 'flex', flexDirection: 'row', width: '70vw', justifyContent: 'space-between', marginLeft: '100px' }}>
           {items}
         </div>
       </div>
@@ -88,21 +100,21 @@ const Carousel = (props) => {
 
   const renderContent = () => {
     let settings = {
-      dots: props.dots,
+      dots,
       infinite: false,
       speed: 500,
-      slidesToShow: props.data.length < props.cardsPerSlide ? props.data.length : props.cardsPerSlide,
-      slidesToScroll: props.slidesToScroll,
+      slidesToShow: data.length < cardsPerSlide ? data.length : cardsPerSlide,
+      slidesToScroll,
       draggable: false,
       arrows: false
     };
 
     return (
-      <div className={"carousel"}>
-        <p className={"carousel-title"}>{props.name}</p>
+      <div className={indexCarousel ? "home-carousel" : "cast-carousel"}>
+        <p className={"carousel-title"}>{name}</p>
         <div className={"carousel-container"}>
           {showButton && <button className={"carousel-button"} onClick={prev}>{"<"}</button>}
-          <Slider ref={Ref => slider = Ref} {...settings} style={{width: '80%'}}>
+          <Slider ref={Ref => slider = Ref} {...settings} style={{ width: '80%' }}>
             {items}
           </Slider>
           {showButton && <button className={"carousel-button"} onClick={next}>{">"}</button>}

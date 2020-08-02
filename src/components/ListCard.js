@@ -4,19 +4,19 @@ import { Redirect } from 'react-router-dom';
 import '../styles/ListStyles.css';
 import { CONTENT_TYPE } from '../Constants';
 
-const ListCard = (props) => {
+const ListCard = ({ id, date, type, character, name, image }) => {
     const [toDetail, setToDetail] = useState(false);
     
-    const handleClickEvent = () => {
+    const handleOnClick = () => {
        setToDetail(true);
     }
 
     const renderContent = () => {
-        const date = props.date ? new Date(props.date).toDateString() : '';
-        const text = props.type == CONTENT_TYPE.PERSON ? props.character || '' : date || '';
+        const _date = date ? new Date(date).toDateString() : '';
+        const text = type === CONTENT_TYPE.PERSON ? character || '' : _date || '';
         return (
             <div>
-                <p className={"list-card-title"}>{props.name}</p>
+                <p className={"list-card-title"}>{name}</p>
                 <p className={"list-card-description"}>{text}</p>
             </div>
         )
@@ -26,12 +26,12 @@ const ListCard = (props) => {
         ev.target.src = image_not_available;
     }
 
-    if (toDetail && props.type !== CONTENT_TYPE.PERSON) {
-        return <Redirect to={`/detail/${props.type}/${props.id}`} />
+    if (toDetail && type !== CONTENT_TYPE.PERSON) {
+        return <Redirect to={`/detail/${type}/${id}`} />
     } else {
         return(
-            <div className={props.character ? "list-card-carousel" : "list-card"} onClick={handleClickEvent}>
-                <img onError={onImgError} className={props.character ? "list-card-carousel-image" : "list-card-image"} src={props.image}/>
+            <div className={character ? "list-card-carousel" : "list-card"} onClick={handleOnClick}>
+                <img onError={onImgError} className={character ? "list-card-carousel-image" : "list-card-image"} src={image} alt="" />
                 {renderContent()}
             </div>
         )

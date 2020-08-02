@@ -20,7 +20,6 @@
 }
 
 .content-info-text {
-    display: block;
     width: 60%;
     margin-left: 30px;
     flex-direction: column;
@@ -57,14 +56,10 @@
         margin-left: 22vw;
     }
 
-    .content-info-background {
-        min-width: 132vw;
-    }
-
     .content-info-image {
-        width: 170px; 
-        height: 240px;
-        margin-left: 19vw;
+        width: 140px; 
+        height: 210px;
+        margin-left: 0vw;
     }
 
     .content-info-title {
@@ -76,10 +71,12 @@
     }
 
     .content-info-description {
-        font-size: 0.9em;
+        font-size: 0.8em;
     }
 
     .content-info-text {
-        margin-left: 13px;
+        width: 180px;
+        margin-left: 9px;
+        margin-right: 10px;
     }
 }

@@ -18,9 +18,9 @@ const Index = () => {
         if (!carouselPopularMovies.length) {
             fetchCarouselsContent();
         }
-    }, [carouselPopularMovies.length])
+    }, [carouselPopularMovies])
 
-    const fetchCarouselsContent = async() => {
+    const fetchCarouselsContent = async () => {
         const [popularMovies, moviesTopRated, moviesUpcoming, popularTV, TVTopRated, TVAiringToday] = await Promise.all([ClientService.getMoviePopular(), ClientService.getMovieTopRated(), ClientService.getMovieUpcoming(), ClientService.getTVPopular(), ClientService.getTVTopRated(), ClientService.getTVAiringToday()]);
         setCarouselPopularMovies(!!popularMovies ? popularMovies.results : []);
         setCarouselMoviesTopRated(!!moviesTopRated ? moviesTopRated.results : []);
@@ -28,32 +28,32 @@ const Index = () => {
         setCarouselPopularTV(!!popularTV ? popularTV.results : []);
         setCarouselTVTopRated(!!TVTopRated ? TVTopRated.results : []);
         setCarouselTVAiringToday(!!TVAiringToday ? TVAiringToday.results : []);
-        setHeroImageUrl(!!popularMovies 
-            ?  `${ClientService.IMAGE_BASE_URL}${ClientService.BACKDROP_SIZE}${popularMovies.results[Math.floor(Math.random() * popularMovies.results.length)].backdrop_path}`
+        setHeroImageUrl(!!popularMovies
+            ? `${ClientService.IMAGE_BASE_URL}${ClientService.BACKDROP_SIZE}${popularMovies.results[Math.floor(Math.random() * popularMovies.results.length)].backdrop_path}`
             : "");
     }
-    
+
     const renderContent = () => {
-        return(
+        return (
             <div>
-                <Hero imageUrl={heroImageUrl}/>
-                <Carousel 
+                <Hero imageUrl={heroImageUrl} />
+                <Carousel
                     data={carouselPopularMovies}
                     name={"Popular Movies"}
                     cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
                     slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
-                    dots={sizeScreenCarouselProps.dots} 
+                    dots={sizeScreenCarouselProps.dots}
                     type={CONTENT_TYPE.MOVIES}
                     indexCarousel={true} />
-                <Carousel 
+                <Carousel
                     data={carouselMoviesTopRated}
                     name={"Movies top rated"}
                     cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
                     slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
-                    dots={sizeScreenCarouselProps.dots} 
+                    dots={sizeScreenCarouselProps.dots}
                     type={CONTENT_TYPE.MOVIES}
                     indexCarousel={true} />
-                <Carousel 
+                <Carousel
                     data={carouselMoviesUpcoming}
                     name={"Movies upcoming"}
                     cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
@@ -61,35 +61,35 @@ const Index = () => {
                     dots={sizeScreenCarouselProps.dots}
                     type={CONTENT_TYPE.MOVIES}
                     indexCarousel={true} />
-                <Carousel 
+                <Carousel
                     data={carouselPopularTV}
                     name={"Popular TV"}
                     cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
                     slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
-                    dots={sizeScreenCarouselProps.dots} 
+                    dots={sizeScreenCarouselProps.dots}
                     type={CONTENT_TYPE.TV}
                     indexCarousel={true} />
-                <Carousel 
+                <Carousel
                     data={carouselTVTopRated}
                     name={"TV top rated"}
                     cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
                     slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
-                    dots={sizeScreenCarouselProps.dots} 
+                    dots={sizeScreenCarouselProps.dots}
                     type={CONTENT_TYPE.TV}
                     indexCarousel={true} />
-                <Carousel 
+                <Carousel
                     data={carouselTVAiringToday}
                     name={"TV airing today"}
                     cardsPerSlide={sizeScreenCarouselProps.cardsPerSlide}
                     slidesToScroll={sizeScreenCarouselProps.slidesToScroll}
-                    dots={sizeScreenCarouselProps.dots} 
+                    dots={sizeScreenCarouselProps.dots}
                     type={CONTENT_TYPE.TV}
                     indexCarousel={true} />
             </div>
         )
     }
 
-    return(
+    return (
         <Screen
             content={
                 renderContent()

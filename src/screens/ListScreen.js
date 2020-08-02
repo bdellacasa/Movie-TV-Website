@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CONTENT_TYPE, minScreen } from '../Constants';
+import { CONTENT_TYPE } from '../Constants';
 import '../styles/PaginatorStyles.css';
 import '../styles/ListStyles.css';
 import Search from '../components/Search';
@@ -8,29 +8,19 @@ import Screen from '../screens/Screen';
 import List from '../components/List';
 import Paginator from '../components/Paginator';
 
-const screenDependantStyle = minScreen ? 
-    {
-        marginTop: '5vh',
-        marginLeft: '6vw'
-    } : 
-    {
-        marginTop: '5vh',
-        marginLeft: '15vw'
-    }
-
 const ListScreen = (props) => {
     const [type, setType] = useState(undefined);
     const [data, setData] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
-        if (!data.length && totalPages==0) {
+        if (!data.length && totalPages === 0) {
             getContent(1);
         }
     }, [data, props.location])
 
     const updateContent = (type, result) => {
-        if (!!result) {
+        if (result) {
             setType(type);
             setTotalPages(result.total_pages);
             setData(result.results);
@@ -41,12 +31,12 @@ const ListScreen = (props) => {
         }
     }
 
-    const searchItem = async(query, page) => {
+    const searchItem = async (query, page) => {
         const result = await ClientService.searchItem(query, page);
         return result;
     }
 
-    const getContent = async(page) => {
+    const getContent = async (page) => {
         let result;
         const path = props.location.pathname.split("/");
         const type = path[1] === CONTENT_TYPE.SEARCH ? path[1] : path[2];
@@ -60,8 +50,9 @@ const ListScreen = (props) => {
             case CONTENT_TYPE.PERSON:
                 result = await ClientService.getPopularPeople(page);
                 break;
-            case CONTENT_TYPE.SEARCH: 
-                result = await searchItem(path[3], page)
+            case CONTENT_TYPE.SEARCH:
+                result = await searchItem(path[3], page);
+                break;
             default:
                 break;
         }
@@ -69,14 +60,14 @@ const ListScreen = (props) => {
     }
 
     const renderContent = () => {
-        return(
+        return (
             <div style={{ alignContent: 'center' }}>
-                {type == CONTENT_TYPE.SEARCH && 
-                    <div style={screenDependantStyle}>
-                        <Search/>
+                {type === CONTENT_TYPE.SEARCH &&
+                    <div className={"list-search-container"}>
+                        <Search />
                     </div>}
-                {data && <List data={data} type={type}/>}
-                {!!data && data.length > 0 && <Paginator totalPages={totalPages} maxPagesToShow={20} paginate={page => getContent(page)}/>}
+                {data && <List data={data} type={type} />}
+                {data && data.length > 0 && <Paginator totalPages={totalPages} maxPagesToShow={20} paginate={page => getContent(page)} />}
             </div>
         )
     }
