@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 import '../styles/CarouselStyles.css';
-import { CONTENT_TYPE, IMAGE_BASE_URL, minScreen } from '../Constants';
+import { CONTENT_TYPE, IMAGE_BASE_URL, mobile, tablet } from '../Constants';
 import image_not_available from '../no_image.jpeg';
 import Card from '../components/ListCard';
 
@@ -12,6 +12,8 @@ const Carousel = (props) => {
   const [items, setItems] = useState([]);
   const [showButton, setShowButton] = useState(true);
   let slider = useRef(null);
+
+  const maxScreen = !(mobile || tablet);
 
   const {
     data,
@@ -28,7 +30,7 @@ const Carousel = (props) => {
       const timer = setTimeout(() => {
         let items = createItems();
         setItems(items);
-        setShowButton(!indexCarousel ? !minScreen && data.length > cardsPerSlide : !minScreen);
+        setShowButton(!indexCarousel ? maxScreen && data.length > cardsPerSlide : maxScreen);
       }, 100);
       return () => clearTimeout(timer);
     }

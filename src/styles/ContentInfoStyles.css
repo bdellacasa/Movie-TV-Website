@@ -8,7 +8,8 @@
     display: flex;
     flex-direction: row;
     height: 550px;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 10%;
     background: rgb(0, 0, 0, 0.5);
 }
 
@@ -51,7 +52,13 @@
     margin-left: 8vw;
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 478px) {
+  .content-info-container {
+    padding-left: 5%;
+  }
+}
+
+@media screen and (max-width: 1280px) {
     .content-info-cast-title {
         margin-left: 22vw;
     }

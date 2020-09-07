@@ -1,6 +1,8 @@
 .detail-video {
     margin-top: 5vh; 
-    margin-left: 5vw;
+    margin-left: 15%;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .detail-video-title {
@@ -11,12 +13,12 @@
     margin-left: 15vw;
 }
 
-@media screen and (max-width: 420px) {
-    .detail-video {
-        margin-left: -4vw;
-    }
+@media screen and (max-width: 1280px) {
+  .detail-video {
+    margin-left: 5%;  
+  }
 
-    .detail-video-title {
-        margin-left: 10vw;  
-    }
+  .detail-video-title {
+      margin-left: 10vw;  
+  }
 }

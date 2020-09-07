@@ -6,15 +6,15 @@ import Logo from '../icons/logo-moviedb.svg';
 const Screen = ({ content }) => {
   return (
     <div className="screen">
-      <Header/>
+      <Header />
       <div className={"screen-content"}>
         {content}
       </div>
       <footer className={"screen-footer"}>
         <p>
-            Powered by
+          Powered by
         </p>
-        <img src={Logo} className={"logo"} style={{marginLeft: 15}} alt="" />
+        <img src={Logo} className={"logo"} style={{ marginLeft: 15 }} alt="" />
       </footer>
     </div>
   );

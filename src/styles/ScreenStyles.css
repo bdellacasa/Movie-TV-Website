@@ -3,7 +3,7 @@
 .header {
     background-color: #282c34;
     height: 10vh;
-    width: 100vw;
+    width: 100%;
     display: flex;
     margin-top: 0px;
     align-items: stretch;
@@ -96,8 +96,6 @@
 .screen {
     text-align: center;
     background-color: white;
-    height: 100vh;
-    width: 100vw;
 }
 
 .screen-content {
@@ -105,13 +103,12 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin-bottom: 100px;
 }
 
 .screen-footer {
     background-color: #282c34;
-    height: 10vh;
+    height: 80px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -133,8 +130,8 @@
 }
 
 .search-button {
-    width: 100px;
-    margin-left: 10px;
+  width: 100px;
+  margin-left: 10px;
 	box-shadow: 0px 10px 14px -7px #276873;
 	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
 	background-color:#599bb3;
@@ -147,7 +144,7 @@
 	font-weight:bold;
 	padding:13px 27px;
 	text-decoration:none;
-    text-shadow:0px 1px 0px #3d768a;
+  text-shadow:0px 1px 0px #3d768a;
 }
 .search-button:hover {
 	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
@@ -182,19 +179,55 @@
 }
 
 @media screen and (max-width: 420px) {
-    .header-font {
-        font-size: 1.1rem;
-    }
+  .search-form {
+    width: 50px;
+  }
 
-    .header-content-container {
-        margin-left: 2%;
-    }
+  .search-button {
+    width: 90px;
+  }
+}
 
-    .search-button {
-        margin-left: 5px;
-    }
+@media screen and (max-width: 600px) {
+  .search-form {
+    width: 240px;
+  }
+}
 
-    .search-form {
-        width: 63vw;
-    }
+@media screen and (max-width: 768px) {
+  .header-font {
+      font-size: 1.1rem;
+  }
+
+  .header-content-container {
+      margin-left: 2%;
+  }
+
+  .search-button {
+      margin-left: 5px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .header {
+    height: 60px;
+    width: 100%;
+  }
+
+  .logo {
+    height: 60px;
+    width: 70px;
+  }
+
+  .header-font {
+    font-size: 0.9em;
+  }
+
+  .search-form {
+    max-width: 400px;
+  }
+
+  .screen-footer {
+    height: 70px;
+  }
 }
